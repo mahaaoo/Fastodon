@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:fastodon/untils/screen.dart';
 import 'package:fastodon/untils/request.dart';
 
+import 'package:fastodon/models/app_credential.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -15,10 +17,12 @@ class _LoginState extends State<Login>  {
     Map paramsMap = Map();
     paramsMap['client_name'] = 'fastodon';
     paramsMap['redirect_uris'] = 'https://mah93.github.io';
-    paramsMap['scopes'] = 'read write';
+    paramsMap['scopes'] = 'read write follow push';
 
     Request.post('https://cmx.im/api/v1/apps', paramsMap,(data) {
-      print(data);
+      AppCredential model =AppCredential.fromJson(data);
+      print(model.clientId);
+      print(model.clientSecret);
     });
   }
 

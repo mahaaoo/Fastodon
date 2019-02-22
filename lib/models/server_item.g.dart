@@ -6,7 +6,7 @@ part of 'server_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ServerItem _$serverItemFromJson(Map<String, dynamic> json) {
+ServerItem _$ServerItemFromJson(Map<String, dynamic> json) {
   return ServerItem(
       json['id'] as String,
       json['name'] as String,
@@ -33,7 +33,7 @@ ServerItem _$serverItemFromJson(Map<String, dynamic> json) {
       json['active_users'] as int);
 }
 
-Map<String, dynamic> _$serverItemToJson(ServerItem instance) =>
+Map<String, dynamic> _$ServerItemToJson(ServerItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

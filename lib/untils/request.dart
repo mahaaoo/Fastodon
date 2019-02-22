@@ -41,17 +41,15 @@ class Request {
   static void _handleResponse(Function callBack, Response<Map> response, Function errorCallBack) {
       int statusCode = response.statusCode;
       String errorMsg = "";
-
       //处理错误部分
-      if (statusCode < 0) {
+      if (statusCode != 200) {
         errorMsg = "网络请求错误,状态码:" + statusCode.toString();
         _handError(errorCallBack, errorMsg);
         return;
       }
 
       if (callBack != null) {
-        callBack(response.data["data"]);
-        print("<net> response data:" + response.data["data"]);
+        callBack(response.data);
       }
   }
 
@@ -63,14 +61,6 @@ class Request {
   }
 
   static Dio createDio() {
-    var options = Options(
-      baseUrl: '',
-      connectTimeout: 10000,
-      receiveTimeout: 100000,
-      // headers: {
-      //   'Authorization': 'Bearer aBn52oSZbSYOTnBaNliExpkQjZT5O1R57Lta7w6PCjI5IOykZr7xEBN6ckePSzKWiXzG35Tx0yY3EEcTfdGQPIcMeNrBQEtIWGRzRpZxOFITtEnYyFceST6jWzxQiA61'
-      // }
-    );
-    return Dio(options);
+    return Dio();
   }
 }

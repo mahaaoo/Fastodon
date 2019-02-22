@@ -71,9 +71,9 @@ class ServerItem extends Object {
 
   ServerItem(this.id,this.name,this.updatedAt,this.checkedAt,this.uptime,this.up,this.dead,this.version,this.ipv6,this.httpsScore,this.httpsRank,this.obsScore,this.obsRank,this.users,this.statuses,this.connections,this.openRegistrations,this.info,this.thumbnail,this.thumbnailProxy,this.activeUsers,);
 
-  factory ServerItem.fromJson(Map<String, dynamic> srcJson) => _$serverItemFromJson(srcJson);
+  factory ServerItem.fromJson(Map<String, dynamic> srcJson) => _$ServerItemFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$serverItemToJson(this);
+  Map<String, dynamic> toJson() => _$ServerItemToJson(this);
 
 }
 
