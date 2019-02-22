@@ -21,12 +21,14 @@ class Request {
     }
   }
 
-  static void post(String url, Function callBack,
-      {Map<String, String> params, Function errorCallBack}) async {
+  static void post(String url, Map params, Function callBack,
+      {Function errorCallBack}) async {
     FormData formData = new FormData();
     params.forEach((key,value) {
       formData.add(key, value);
     });
+    print(formData);
+    print(url);
     var dio = Request.createDio();
     try {
       Response<Map> response = await dio.post(url, data: formData);
@@ -65,9 +67,9 @@ class Request {
       baseUrl: '',
       connectTimeout: 10000,
       receiveTimeout: 100000,
-      headers: {
-        'Authorization': 'Bearer aBn52oSZbSYOTnBaNliExpkQjZT5O1R57Lta7w6PCjI5IOykZr7xEBN6ckePSzKWiXzG35Tx0yY3EEcTfdGQPIcMeNrBQEtIWGRzRpZxOFITtEnYyFceST6jWzxQiA61'
-      }
+      // headers: {
+      //   'Authorization': 'Bearer aBn52oSZbSYOTnBaNliExpkQjZT5O1R57Lta7w6PCjI5IOykZr7xEBN6ckePSzKWiXzG35Tx0yY3EEcTfdGQPIcMeNrBQEtIWGRzRpZxOFITtEnYyFceST6jWzxQiA61'
+      // }
     );
     return Dio(options);
   }
