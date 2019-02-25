@@ -35,12 +35,89 @@ class _ServerListState extends State<ServerList>  {
     });
   }
 
+  Widget _serverLogo(String url) {
+    if(url == null) {
+      return Image.asset('image/wallpaper.png', width: 70, height: 70);
+    } else {
+      return CachedNetworkImage(
+        imageUrl: url,
+        width: 70,
+        height: 70,
+      );
+    };
+  }
+
   Widget _rowBuild(BuildContext context, int index, ServerItem item) {
+    String shortDes = '';
+    if (item.info != null && item.info.shortDescription != null) {
+      shortDes = item.info.shortDescription;
+    }
+    double users = int.parse(item.users) / 1000;
+    List userNum = users.toString().split(".");
+    String showUsers = '';
+    if (userNum[0] == '0') {
+      showUsers = userNum[0] + 'K用户';
+    } else {
+      showUsers = userNum[1] + '用户';
+    }
+
     return Container(
       color: MyColor.white,
       child: Row(
         children: <Widget>[
-          Text(item.name),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+            ),
+            child: _serverLogo(item.thumbnail),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(item.name, style: TextStyle(fontSize: 15),),
+                SizedBox(height: 5),
+                Text(shortDes, maxLines: 3, style: TextStyle(fontSize: 13)),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        color: MyColor.aLiveColor
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Text('稳定', style: TextStyle(color: MyColor.aLiveColor)),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        color: MyColor.aLiveColor
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Text(showUsers, style: TextStyle(color: MyColor.aLiveColor))
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -65,12 +142,18 @@ class _ServerListState extends State<ServerList>  {
               child: Text(noticeString, style: TextStyle(fontSize: 12),), 
             ),
             Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
                 itemBuilder: (BuildContext context, int index) {
                   ServerItem item = ServerItem.fromJson(_serverList[index]);
                   return _rowBuild(context, index, item);
                 },
                 itemCount: _serverList.length,
+                separatorBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: Divider(height: 1.0, color: MyColor.backgroundColor),
+                  );
+                },
               ),
             ),
           ],
