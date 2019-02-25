@@ -131,6 +131,12 @@ class _ServerListState extends State<ServerList>  {
         backgroundColor: MyColor.primary,
         title: Text('选择节点', style: TextStyle(color: MyColor.white),),
         toolbarOpacity: 1,
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Icon(Icons.search),
+          )
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () => _getServerList(),

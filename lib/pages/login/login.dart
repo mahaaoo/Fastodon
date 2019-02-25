@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:fastodon/untils/request.dart';
 import 'package:fastodon/untils/app_navigate.dart';
 import 'package:fastodon/untils/my_color.dart';
+import 'package:fastodon/untils/local_storage.dart';
+
+import 'package:fastodon/constant/storage_key.dart';
 
 import 'package:fastodon/models/app_credential.dart';
 import 'server_list.dart';
@@ -14,18 +17,28 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login>  {
+  final TextEditingController _controller = new TextEditingController();
 
-  Future<void> _postApps() async {
+  Future<void> _postApps(String hostUrl) async {
     Map paramsMap = Map();
     paramsMap['client_name'] = 'fastodon';
     paramsMap['redirect_uris'] = 'https://mah93.github.io';
     paramsMap['scopes'] = 'read write follow push';
 
-    Request.post(url: 'https://cmx.im/api/v1/apps', params: paramsMap, callBack: (data) {
-      AppCredential model =AppCredential.fromJson(data);
+    Request.post(url: '${hostUrl}/api/v1/apps', params: paramsMap, callBack: (data) {
+      AppCredential model = AppCredential.fromJson(data);
       print(model.clientId);
       print(model.clientSecret);
     });
+  }
+
+  void _checkInputText() {
+    if(_controller.text == null || _controller.text.length == 0) {
+      return;
+    }
+    print(_controller.text);
+    String hostUrl = 'https://${_controller.text}';
+    _postApps(hostUrl);
   }
 
   void _chooseServer(context) {
@@ -34,8 +47,6 @@ class _LoginState extends State<Login>  {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = new TextEditingController();
-
     return Scaffold(
       backgroundColor: MyColor.primary,
       body: Container(
@@ -91,7 +102,7 @@ class _LoginState extends State<Login>  {
                   Expanded(child:
                      RaisedButton(
                       onPressed: (){
-                        print("立即登录");
+                        _checkInputText();
                       },
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
@@ -119,20 +130,3 @@ class _LoginState extends State<Login>  {
     );
   }
 }
-
-            // GestureDetector(
-            //   onTap: () {
-            //     _postApps();
-            //   },
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.all(Radius.circular(5)),
-            //       color: Colors.white
-            //     ),
-            //     width: _screenWidth - 50,
-            //     height: 40,
-            //     child: Center(
-            //       child: Text('登录Mastodon账号', style:TextStyle(fontSize: 18, color:  Color.fromRGBO(115, 167, 238, 1)))
-            //     ),
-            //   ),
-            // ),

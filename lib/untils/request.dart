@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'local_storage.dart';
+import 'package:fastodon/constant/storage_key.dart';
 
 class Request {
   static void get({String url, Function callBack,
