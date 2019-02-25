@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
 class Request {
-  static void get(String url, Function callBack,
-      {Map<String, String> params, Function errorCallBack}) async {
+  static void get({String url, Function callBack,
+      Map params, Function errorCallBack, Map header}) async {
     if (params != null && params.isNotEmpty) {
       StringBuffer sb = new StringBuffer("?");
       params.forEach((key, value) {
@@ -12,23 +12,26 @@ class Request {
       paramStr = paramStr.substring(0, paramStr.length - 1);
       url += paramStr;
     }
+
     var dio = Request.createDio();
+    if (header != null && header.isNotEmpty) {
+      dio.options.headers = header;
+    }
     try {
       Response<Map>response = await dio.get(url);
       _handleResponse(callBack, response, errorCallBack);
     } catch (exception) {
+      print(exception);
       _handError(errorCallBack, exception.toString());
     }
   }
 
-  static void post(String url, Map params, Function callBack,
-      {Function errorCallBack}) async {
+  static void post({String url, Map params, Function callBack,
+      Function errorCallBack}) async {
     FormData formData = new FormData();
     params.forEach((key,value) {
       formData.add(key, value);
     });
-    print(formData);
-    print(url);
     var dio = Request.createDio();
     try {
       Response<Map> response = await dio.post(url, data: formData);

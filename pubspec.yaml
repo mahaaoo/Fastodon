@@ -21,6 +21,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   dio: ^2.0.2
   json_serializable: ^2.0.0
+  cached_network_image: ^0.6.0
 
 dev_dependencies:
   flutter_test:
