@@ -156,7 +156,7 @@ class _LoginState extends State<Login>  {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      _chooseServer(context);
+                      print('显示一个关于我们');
                     },
                     child: Container(
                       child: Center(
