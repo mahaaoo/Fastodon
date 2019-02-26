@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:fastodon/untils/request.dart';
 import 'package:fastodon/untils/app_navigate.dart';
@@ -9,6 +11,7 @@ import 'package:fastodon/untils/local_storage.dart';
 import 'package:fastodon/constant/storage_key.dart';
 
 import 'package:fastodon/models/app_credential.dart';
+import 'package:fastodon/models/server_item.dart';
 import 'server_list.dart';
 
 class Login extends StatefulWidget {
@@ -18,6 +21,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login>  {
   final TextEditingController _controller = new TextEditingController();
+  bool _clickButton = false;
 
   Future<void> _postApps(String hostUrl) async {
     Map paramsMap = Map();
@@ -29,6 +33,22 @@ class _LoginState extends State<Login>  {
       AppCredential model = AppCredential.fromJson(data);
       print(model.clientId);
       print(model.clientSecret);
+      setState(() {
+        _clickButton = false;
+      });
+    }, errorCallBack: (error) {
+      setState(() {
+        _clickButton = false;
+      });
+      Fluttertoast.showToast(
+        msg: "不存在该节点",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        backgroundColor: MyColor.error,
+        textColor: MyColor.white,
+        fontSize: 16.0
+      );
     });
   }
 
@@ -36,13 +56,28 @@ class _LoginState extends State<Login>  {
     if(_controller.text == null || _controller.text.length == 0) {
       return;
     }
-    print(_controller.text);
+    setState(() {
+      _clickButton = true;
+    });
     String hostUrl = 'https://${_controller.text}';
     _postApps(hostUrl);
   }
 
-  void _chooseServer(context) {
-    AppNavigate.push(context, ServerList());
+  void _chooseServer(BuildContext context) {
+    AppNavigate.push(context, ServerList(), callBack: (ServerItem item) {
+      _controller.text = item.name;
+      _checkInputText();
+    });
+  }
+
+  Widget _showButtonLoading(BuildContext context) {
+    if (_clickButton) {
+      return SpinKitThreeBounce(
+        color: MyColor.primary,
+        size: 23,
+      );
+    }
+    return Text('登录Mastodon账号', style:TextStyle(fontSize: 16, color:  MyColor.primary));
   }
 
   @override
@@ -105,8 +140,8 @@ class _LoginState extends State<Login>  {
                         _checkInputText();
                       },
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
-                        child: Text('登录Mastodon账号', style:TextStyle(fontSize: 16, color:  MyColor.primary))
+                        padding: EdgeInsets.all(10),
+                        child: _showButtonLoading(context), 
                       ),
                       color: Colors.white,
                     ),
@@ -114,14 +149,32 @@ class _LoginState extends State<Login>  {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                _chooseServer(context);
-              },
-              child: Container(
-                child: Center(
-                  child: Text('什么是域名', style: TextStyle(color: MyColor.white)),
-                ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      _chooseServer(context);
+                    },
+                    child: Container(
+                      child: Center(
+                        child: Text('关于Mastodon', style: TextStyle(color: MyColor.white)),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      _chooseServer(context);
+                    },
+                    child: Container(
+                      child: Center(
+                        child: Text('选择域名', style: TextStyle(color: MyColor.white)),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

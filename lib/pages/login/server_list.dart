@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:fastodon/untils/request.dart';
 import 'package:fastodon/untils/my_color.dart';
+import 'package:fastodon/untils/app_navigate.dart';
 
 import 'package:fastodon/models/server_item.dart';
 
@@ -61,84 +63,81 @@ class _ServerListState extends State<ServerList>  {
       showUsers = userNum[1] + '用户';
     }
 
-    return Container(
-      color: MyColor.white,
-      child: Row(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
+    return GestureDetector(
+      onTap: () {
+        AppNavigate.pop(context, param: item);
+      },
+      child: Container(
+        color: MyColor.white,
+        child: Row(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: _serverLogo(item.thumbnail),
             ),
-            child: _serverLogo(item.thumbnail),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(item.name, style: TextStyle(fontSize: 15),),
-                SizedBox(height: 5),
-                Text(shortDes, maxLines: 3, style: TextStyle(fontSize: 13)),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(item.name, style: TextStyle(fontSize: 15),),
+                  SizedBox(height: 5),
+                  Text(shortDes, maxLines: 3, style: TextStyle(fontSize: 13)),
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                        color: MyColor.aLiveColor
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          color: MyColor.aLiveColor
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text('稳定', style: TextStyle(color: MyColor.aLiveColor)),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                        color: MyColor.aLiveColor
+                      SizedBox(width: 5),
+                      Text('稳定', style: TextStyle(color: MyColor.aLiveColor)),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          color: MyColor.aLiveColor
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(showUsers, style: TextStyle(color: MyColor.aLiveColor))
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
+                      SizedBox(width: 5),
+                      Text(showUsers, style: TextStyle(color: MyColor.aLiveColor))
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColor.white,
-      appBar: AppBar(
-        backgroundColor: MyColor.primary,
-        title: Text('选择节点', style: TextStyle(color: MyColor.white),),
-        toolbarOpacity: 1,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Icon(Icons.search),
-          )
-        ],
-      ),
-      body: RefreshIndicator(
+  Widget _loadingRequest(BuildContext context) {
+    if(_serverList.length == 0) {
+      return SpinKitThreeBounce(
+        color: MyColor.primary,
+        size: 50.0,
+      );
+    }
+    return RefreshIndicator(
         onRefresh: () => _getServerList(),
         child: Column(
           children: <Widget>[
@@ -164,7 +163,25 @@ class _ServerListState extends State<ServerList>  {
             ),
           ],
         ),
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: MyColor.white,
+      appBar: AppBar(
+        backgroundColor: MyColor.primary,
+        title: Text('选择节点', style: TextStyle(color: MyColor.white),),
+        toolbarOpacity: 1,
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Icon(Icons.search),
+          )
+        ],
       ),
+      body: _loadingRequest(context),
     );
   }
 }
