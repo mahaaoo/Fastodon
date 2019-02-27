@@ -17,12 +17,29 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login>  {
+class _LoginState extends State<Login> {
   final TextEditingController _controller = new TextEditingController();
   bool _clickButton = false;
 
+  @override
+  void initState() {
+    super.initState();
+    // 隐藏登录弹出页
+    eventBus.on(EventBusKey.SelectedServer, (arg) {
+      ServerItem item = arg;
+      if(item !=null) {
+        _controller.text = item.name;
+        _checkInputText();
+      }
+    });
+  }
+
 // 请求app的信息
   Future<void> _postApps(String hostUrl) async {
+    setState(() {
+      _clickButton = true;
+    });
+
     Map paramsMap = Map();
     paramsMap['client_name'] = 'fastodon';
     paramsMap['redirect_uris'] = 'https://mah93.github.io';
@@ -33,7 +50,7 @@ class _LoginState extends State<Login>  {
       setState(() {
         _clickButton = false;
       });
-      AppNavigate.push(context, WebLogin(serverItem: model, hostUrl: hostUrl), callBack: (String code) {
+      AppNavigate.push(context, WebLogin(serverItem: model, hostUrl: hostUrl), callBack: (code) {
         _getToken(code, model, hostUrl);
       });
     }, errorCallBack: (error) {
@@ -74,21 +91,13 @@ class _LoginState extends State<Login>  {
     if(_controller.text == null || _controller.text.length == 0) {
       return;
     }
-    setState(() {
-      _clickButton = true;
-    });
     String hostUrl = 'https://${_controller.text}';
     _postApps(hostUrl);
   }
 
 // 跳转到选择节点页面
   void _chooseServer(BuildContext context) {
-    AppNavigate.push(context, ServerList(), callBack: (ServerItem item) {
-      if (item != null) {
-        _controller.text = item.name;
-        _checkInputText();
-      }
-    });
+    AppNavigate.push(context, ServerList());
   }
 
   Widget _showButtonLoading(BuildContext context) {

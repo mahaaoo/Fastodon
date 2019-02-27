@@ -30,6 +30,7 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
+    widget.showWidget();
     // 隐藏登录弹出页
     eventBus.on(EventBusKey.LoginSuccess, (arg) {
       widget.hideWidget();
@@ -60,7 +61,6 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
-    widget.showWidget();
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(),

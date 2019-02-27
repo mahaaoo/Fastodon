@@ -36,8 +36,12 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Builder(
           builder: (context) => RootPage(
-            showWidget: () {_showLoginWidget(context);},
-            hideWidget: () {_hideLoginWidget(context);}
+            showWidget: () {
+              _showLoginWidget(context);
+            },
+            hideWidget: () {
+              _hideLoginWidget(context);
+            }
           )
         )
       ),
