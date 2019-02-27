@@ -7,4 +7,5 @@ class MyColor {
   static Color backgroundColor = Color.fromRGBO(250, 250, 250, 1);
   static Color aLiveColor = Color.fromRGBO(121, 189, 154, 1);
   static Color error = Colors.red;
+  static Color gray = Colors.grey[300];
 }

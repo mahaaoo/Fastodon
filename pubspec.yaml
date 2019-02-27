@@ -26,7 +26,7 @@ dependencies:
   flutter_spinkit: "^3.1.0"
   fluttertoast: ^3.0.1
   flutter_webview_plugin: ^0.3.0+2
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

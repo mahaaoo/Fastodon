@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:fastodon/public.dart';
+
 import 'home/home.dart';
 import 'local/local.dart';
 import 'metion/metion.dart';
 import 'setting/setting.dart';
 
 class RootPage extends StatefulWidget {
+
+  const RootPage({
+    Key key,
+    this.showWidget,
+    this.hideWidget,
+  }) : super(key: key);
+
+  final Function showWidget;
+  final Function hideWidget;
+
   @override
   _RootPageState createState() => _RootPageState();
 }
@@ -15,6 +27,15 @@ class _RootPageState extends State<RootPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _tabIndex = 0;
   
+  @override
+  void initState() {
+    super.initState();
+    // 隐藏登录弹出页
+    eventBus.on(EventBusKey.LoginSuccess, (arg) {
+      widget.hideWidget();
+    });
+  }
+
   List<Icon> _tabImages = [
     Icon(Icons.home),
     Icon(Icons.people),
@@ -36,8 +57,10 @@ class _RootPageState extends State<RootPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
+    widget.showWidget();
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(),

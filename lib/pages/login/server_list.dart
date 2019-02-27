@@ -3,10 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'package:fastodon/untils/request.dart';
-import 'package:fastodon/untils/my_color.dart';
-import 'package:fastodon/untils/app_navigate.dart';
-
+import 'package:fastodon/public.dart';
 import 'package:fastodon/models/server_item.dart';
 
 class ServerList extends StatefulWidget {

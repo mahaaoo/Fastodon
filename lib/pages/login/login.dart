@@ -3,16 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:fastodon/untils/request.dart';
-import 'package:fastodon/untils/app_navigate.dart';
-import 'package:fastodon/untils/my_color.dart';
-import 'package:fastodon/untils/local_storage.dart';
-
-import 'package:fastodon/constant/storage_key.dart';
+import 'package:fastodon/public.dart';
 
 import 'package:fastodon/models/app_credential.dart';
 import 'package:fastodon/models/server_item.dart';
 import 'package:fastodon/models/token.dart';
+
 import 'server_list.dart';
 import 'web_login.dart';
 
@@ -25,6 +21,7 @@ class _LoginState extends State<Login>  {
   final TextEditingController _controller = new TextEditingController();
   bool _clickButton = false;
 
+// 请求app的信息
   Future<void> _postApps(String hostUrl) async {
     Map paramsMap = Map();
     paramsMap['client_name'] = 'fastodon';
@@ -55,25 +52,8 @@ class _LoginState extends State<Login>  {
     });
   }
 
+// 获取token，此后的每次请求都需带上此token
   Future<void> _getToken(String code, AppCredential serverItem, String hostUrl) async {
-   showDialog(
-      context: context,
-      child: SimpleDialog(
-        contentPadding: EdgeInsets.all(10.0),
-        title: SpinKitCircle(
-          color: MyColor.primary,
-          size: 40,
-        ),
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("登录中", style: TextStyle(fontSize: 15),)
-            ],
-          )
-        ],
-    ));
-
     Map<String, dynamic> paramsMap = Map();
     paramsMap['client_id'] = serverItem.clientId;
     paramsMap['client_secret'] = serverItem.clientSecret;
@@ -82,13 +62,11 @@ class _LoginState extends State<Login>  {
     paramsMap['redirect_uri'] = serverItem.redirectUri;
 
     Request.post(url: '$hostUrl/oauth/token', params: paramsMap, callBack: (data) {
-      print('请求成功');
       Token getToken = Token.fromJson(data);      
       String token = '${getToken.tokenType} ${getToken.accessToken}';
-      print(token);
       Storage.save(StorageKey.Token, token);
       Storage.save(StorageKey.HostUrl, hostUrl);
-      AppNavigate.pop(context);
+      eventBus.emit(EventBusKey.LoginSuccess);
     });
   }
 
@@ -103,6 +81,7 @@ class _LoginState extends State<Login>  {
     _postApps(hostUrl);
   }
 
+// 跳转到选择节点页面
   void _chooseServer(BuildContext context) {
     AppNavigate.push(context, ServerList(), callBack: (ServerItem item) {
       if (item != null) {
@@ -122,9 +101,39 @@ class _LoginState extends State<Login>  {
     return Text('登录Mastodon账号', style:TextStyle(fontSize: 16, color:  MyColor.primary));
   }
 
+  void _showAboutSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                width: 50,
+                height: 8,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                  color: MyColor.gray
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text('Mastodon（官方中文译万象，网民又称长毛象）是一个免费开源的去中心化的分布式微博客社交网络。它的用户界面和操作方式跟推特类似，但是整个网络并非由单一机构运作，却是由多个由不同营运者独立运作的服务器以联邦方式交换数据而组成的去中心化社交网络。'),
+              )
+            ],
+          ),
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding:false,
       backgroundColor: MyColor.primary,
       body: Container(
         child: Column(
@@ -198,7 +207,7 @@ class _LoginState extends State<Login>  {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      print('显示一个关于我们');
+                      _showAboutSheet(context);
                     },
                     child: Container(
                       child: Center(
