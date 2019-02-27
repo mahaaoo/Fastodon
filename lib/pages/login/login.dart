@@ -12,7 +12,9 @@ import 'package:fastodon/constant/storage_key.dart';
 
 import 'package:fastodon/models/app_credential.dart';
 import 'package:fastodon/models/server_item.dart';
+import 'package:fastodon/models/token.dart';
 import 'server_list.dart';
+import 'web_login.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -29,12 +31,13 @@ class _LoginState extends State<Login>  {
     paramsMap['redirect_uris'] = 'https://mah93.github.io';
     paramsMap['scopes'] = 'read write follow push';
 
-    Request.post(url: '${hostUrl}/api/v1/apps', params: paramsMap, callBack: (data) {
+    Request.post(url: '$hostUrl/api/v1/apps', params: paramsMap, callBack: (data) {
       AppCredential model = AppCredential.fromJson(data);
-      print(model.clientId);
-      print(model.clientSecret);
       setState(() {
         _clickButton = false;
+      });
+      AppNavigate.push(context, WebLogin(serverItem: model, hostUrl: hostUrl), callBack: (String code) {
+        _getToken(code, model, hostUrl);
       });
     }, errorCallBack: (error) {
       setState(() {
@@ -52,6 +55,43 @@ class _LoginState extends State<Login>  {
     });
   }
 
+  Future<void> _getToken(String code, AppCredential serverItem, String hostUrl) async {
+   showDialog(
+      context: context,
+      child: SimpleDialog(
+        contentPadding: EdgeInsets.all(10.0),
+        title: SpinKitCircle(
+          color: MyColor.primary,
+          size: 40,
+        ),
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("登录中", style: TextStyle(fontSize: 15),)
+            ],
+          )
+        ],
+    ));
+
+    Map<String, dynamic> paramsMap = Map();
+    paramsMap['client_id'] = serverItem.clientId;
+    paramsMap['client_secret'] = serverItem.clientSecret;
+    paramsMap['grant_type'] = 'authorization_code';
+    paramsMap['code'] = code;
+    paramsMap['redirect_uri'] = serverItem.redirectUri;
+
+    Request.post(url: '$hostUrl/oauth/token', params: paramsMap, callBack: (data) {
+      print('请求成功');
+      Token getToken = Token.fromJson(data);      
+      String token = '${getToken.tokenType} ${getToken.accessToken}';
+      print(token);
+      Storage.save(StorageKey.Token, token);
+      Storage.save(StorageKey.HostUrl, hostUrl);
+      AppNavigate.pop(context);
+    });
+  }
+
   void _checkInputText() {
     if(_controller.text == null || _controller.text.length == 0) {
       return;
@@ -65,8 +105,10 @@ class _LoginState extends State<Login>  {
 
   void _chooseServer(BuildContext context) {
     AppNavigate.push(context, ServerList(), callBack: (ServerItem item) {
-      _controller.text = item.name;
-      _checkInputText();
+      if (item != null) {
+        _controller.text = item.name;
+        _checkInputText();
+      }
     });
   }
 

@@ -30,10 +30,11 @@ class _ServerListState extends State<ServerList>  {
     
     Request.get(url: 'https://instances.social/api/1.0/instances/list', header: header, callBack: (data) {
       List allServer = data['instances'];
-      print(allServer.length);
-      setState(() {
-        _serverList = allServer;
-      });
+      if(this.mounted) {
+        setState(() {
+          _serverList = allServer;
+        });
+      }
     });
   }
 
@@ -46,7 +47,7 @@ class _ServerListState extends State<ServerList>  {
         width: 70,
         height: 70,
       );
-    };
+    }
   }
 
   Widget _rowBuild(BuildContext context, int index, ServerItem item) {
