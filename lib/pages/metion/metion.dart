@@ -11,6 +11,10 @@ class _MetionState extends State<Metion> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Text('metion');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('通知'),
+      ),
+    );
   }
 }

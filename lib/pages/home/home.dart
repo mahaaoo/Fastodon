@@ -11,6 +11,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Text('main');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('首页'),
+      ),
+    );
   }
 }

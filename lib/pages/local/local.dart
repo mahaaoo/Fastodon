@@ -11,6 +11,10 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Text('local');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('周围'),
+      ),
+    );
   }
 }

@@ -31,6 +31,7 @@ class WebLogin extends StatelessWidget {
         url: url,
         appBar: new AppBar(
           title: new Text('登录'),
+          backgroundColor: Color.fromRGBO(40, 44, 55, 1),
         ),
         withZoom: true,
         withLocalStorage: true,

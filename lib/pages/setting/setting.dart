@@ -11,6 +11,10 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Text('setting');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('设置'),
+      ),
+    );
   }
 }

@@ -58,7 +58,6 @@ class _RootPageState extends State<RootPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +81,8 @@ class _RootPageState extends State<RootPage> {
         ],
         currentIndex: _tabIndex,
         onTap: (index) {
+        // 每次切换检测是否登录
+          widget.showWidget();
           setState(() {
             _tabIndex = index;
           });
