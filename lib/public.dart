@@ -11,3 +11,4 @@ export 'package:fastodon/untils/screen.dart';
 // constant
 export 'package:fastodon/constant/storage_key.dart';
 export 'package:fastodon/constant/event_bus_key.dart';
+export 'package:fastodon/constant/api.dart';

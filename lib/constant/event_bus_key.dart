@@ -1,4 +1,4 @@
 class EventBusKey {
   static String LoginSuccess = 'LoginSuccess';
-  static String SelectedServer = 'SelectedServer';
+  static String StorageSuccess = 'StorageSuccess';
 }

@@ -37,6 +37,12 @@ class _RootPageState extends State<RootPage> {
     });
   }
 
+  @override
+  void dispose() {
+    eventBus.off(EventBusKey.LoginSuccess);
+    super.dispose();
+  }
+
   List<Icon> _tabImages = [
     Icon(Icons.home),
     Icon(Icons.people),

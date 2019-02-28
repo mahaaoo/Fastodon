@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:fastodon/public.dart';
-import 'package:fastodon/models/server_item.dart';
+import 'model/server_item.dart';
 
 class ServerList extends StatefulWidget {
   @override
@@ -25,7 +25,7 @@ class _ServerListState extends State<ServerList>  {
     Map<String, dynamic> header = Map();
     header['Authorization'] = 'Bearer pEpudHDXGCMgCKtDky37mdO6mwtynpbIU07pi3SsMhGLA4pDlB7nnS5Yzbs5JzbT59pkIajfXINxKDZvloVTnNfzlx9GOrODP0ytRhIey1xxizEK0dqZgX9GGz427K4e';
     
-    Request.get(url: 'https://instances.social/api/1.0/instances/list', header: header, callBack: (data) {
+    Request.get(url: Api.ServerList, header: header, callBack: (data) {
       List allServer = data['instances'];
       if(this.mounted) {
         setState(() {
@@ -63,8 +63,7 @@ class _ServerListState extends State<ServerList>  {
 
     return GestureDetector(
       onTap: () {
-        eventBus.emit(EventBusKey.SelectedServer, item);
-        AppNavigate.pop(context);
+        AppNavigate.pop(context, param: item);
       },
       child: Container(
         color: MyColor.white,

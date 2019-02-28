@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:fastodon/models/app_credential.dart';
+import 'model/app_credential.dart';
 import 'package:fastodon/untils/app_navigate.dart';
 
 class WebLogin extends StatelessWidget {
@@ -26,7 +26,6 @@ class WebLogin extends StatelessWidget {
     });
 
     String url = '$hostUrl/oauth/authorize?scope=read%20write%20follow%20push&response_type=code&redirect_uri=${serverItem.redirectUri}&client_id=${serverItem.clientId}';
-    print(url);
     return WebviewScaffold(
         url: url,
         appBar: new AppBar(

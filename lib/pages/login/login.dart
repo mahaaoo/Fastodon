@@ -5,10 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:fastodon/public.dart';
 
-import 'package:fastodon/models/app_credential.dart';
-import 'package:fastodon/models/server_item.dart';
-import 'package:fastodon/models/token.dart';
-
+import 'model/app_credential.dart';
+import 'model/server_item.dart';
+import 'model/token.dart';
 import 'server_list.dart';
 import 'web_login.dart';
 
@@ -24,14 +23,6 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    // 隐藏登录弹出页
-    eventBus.on(EventBusKey.SelectedServer, (arg) {
-      ServerItem item = arg;
-      if(item !=null) {
-        _controller.text = item.name;
-        _checkInputText();
-      }
-    });
   }
 
 // 请求app的信息
@@ -45,7 +36,7 @@ class _LoginState extends State<Login> {
     paramsMap['redirect_uris'] = 'https://mah93.github.io';
     paramsMap['scopes'] = 'read write follow push';
 
-    Request.post(url: '$hostUrl/api/v1/apps', params: paramsMap, callBack: (data) {
+    Request.post(url: '$hostUrl' + Api.Apps, params: paramsMap, callBack: (data) {
       AppCredential model = AppCredential.fromJson(data);
       setState(() {
         _clickButton = false;
@@ -78,7 +69,7 @@ class _LoginState extends State<Login> {
     paramsMap['code'] = code;
     paramsMap['redirect_uri'] = serverItem.redirectUri;
 
-    Request.post(url: '$hostUrl/oauth/token', params: paramsMap, callBack: (data) {
+    Request.post(url: '$hostUrl' + Api.Token, params: paramsMap, callBack: (data) {
       Token getToken = Token.fromJson(data);      
       String token = '${getToken.tokenType} ${getToken.accessToken}';
       Storage.save(StorageKey.Token, token);
@@ -97,7 +88,12 @@ class _LoginState extends State<Login> {
 
 // 跳转到选择节点页面
   void _chooseServer(BuildContext context) {
-    AppNavigate.push(context, ServerList());
+    AppNavigate.push(context, ServerList(), callBack: (ServerItem item) {
+      if(item !=null) {
+        _controller.text = item.name;
+        _checkInputText();
+      }
+    });
   }
 
   Widget _showButtonLoading(BuildContext context) {
