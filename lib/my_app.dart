@@ -26,11 +26,33 @@ class MyApp extends StatelessWidget {
         } else {
           user.setHost(host);
           user.setToken(token);
-          eventBus.emit(EventBusKey.StorageSuccess);
+          _verifyToken(context);
         }
       });
     });
   }
+
+// 验证存储在本地的token是否可以使用
+  Future<void> _verifyToken(BuildContext context) async {
+    Request.get(url: Api.VerifyToken, callBack: (data) {
+      if(data['name'] == AppConfig.ClientName) {
+        eventBus.emit(EventBusKey.StorageSuccess);
+      } else {
+        // token已失效，删除本地所有token信息
+        Storage.removeString(StorageKey.HostUrl);
+        Storage.removeString(StorageKey.Token);
+        user.setHost(null);
+        user.setToken(null);
+        showBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return Login();
+          }
+        );
+      }
+    });
+  }
+
 
   void _hideLoginWidget(BuildContext context) {
     AppNavigate.pop(context);

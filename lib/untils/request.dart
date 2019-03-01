@@ -18,9 +18,6 @@ class Request {
     if (header != null && header.isNotEmpty) {
       dio.options.headers = header;
     }
-
-    print(dio.options.baseUrl);
-    print(dio.options.headers);
     try {
       Response response = await dio.get(url);
       _handleResponse(callBack, response, errorCallBack);
@@ -85,7 +82,6 @@ class Request {
         return options; //continue
       },
       onResponse:(Response response) {
-        print('返回之前');
         return response; // continue
       },
       onError: (DioError e) {

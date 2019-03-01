@@ -32,9 +32,9 @@ class _LoginState extends State<Login> {
     });
 
     Map paramsMap = Map();
-    paramsMap['client_name'] = 'fastodon';
-    paramsMap['redirect_uris'] = 'https://mah93.github.io';
-    paramsMap['scopes'] = 'read write follow push';
+    paramsMap['client_name'] = AppConfig.ClientName;
+    paramsMap['redirect_uris'] = AppConfig.RedirectUris;
+    paramsMap['scopes'] = AppConfig.Scopes;
 
     Request.post(url: '$hostUrl' + Api.Apps, params: paramsMap, callBack: (data) {
       AppCredential model = AppCredential.fromJson(data);

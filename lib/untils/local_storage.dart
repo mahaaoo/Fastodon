@@ -22,4 +22,15 @@ class Storage {
       return null;
     }
   }
+
+  static void removeString(String key) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove(key);
+    } catch (e) {
+      print('报错了');
+      print(e.toString());
+      return null;
+    }
+  }
 }
