@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_line.dart';
+part of 'article_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-HomeLine _$HomeLineFromJson(Map<String, dynamic> json) {
-  return HomeLine(
+ArticleItem _$ArticleItemFromJson(Map<String, dynamic> json) {
+  return ArticleItem(
       json['id'] as String,
       json['created_at'] as String,
       json['sensitive'] as bool,
@@ -38,7 +38,7 @@ HomeLine _$HomeLineFromJson(Map<String, dynamic> json) {
           : Card.fromJson(json['card'] as Map<String, dynamic>));
 }
 
-Map<String, dynamic> _$HomeLineToJson(HomeLine instance) => <String, dynamic>{
+Map<String, dynamic> _$ArticleItemToJson(ArticleItem instance) => <String, dynamic>{
       'id': instance.id,
       'created_at': instance.createdAt,
       'sensitive': instance.sensitive,

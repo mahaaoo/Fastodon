@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart'; 
   
-part 'home_line.g.dart';
+part 'article_item.g.dart';
 
 
 @JsonSerializable()
-  class HomeLine extends Object {
+  class ArticleItem extends Object {
 
   @JsonKey(name: 'id')
   String id;
@@ -72,11 +72,11 @@ part 'home_line.g.dart';
   @JsonKey(name: 'card')
   Card card;
 
-  HomeLine(this.id,this.createdAt,this.sensitive,this.spoilerText,this.visibility,this.language,this.uri,this.content,this.url,this.repliesCount,this.reblogsCount,this.favouritesCount,this.favourited,this.reblogged,this.muted,this.application,this.account,this.mediaAttachments,this.mentions,this.tags,this.emojis,this.card,);
+  ArticleItem(this.id,this.createdAt,this.sensitive,this.spoilerText,this.visibility,this.language,this.uri,this.content,this.url,this.repliesCount,this.reblogsCount,this.favouritesCount,this.favourited,this.reblogged,this.muted,this.application,this.account,this.mediaAttachments,this.mentions,this.tags,this.emojis,this.card,);
 
-  factory HomeLine.fromJson(Map<String, dynamic> srcJson) => _$HomeLineFromJson(srcJson);
+  factory ArticleItem.fromJson(Map<String, dynamic> srcJson) => _$ArticleItemFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$HomeLineToJson(this);
+  Map<String, dynamic> toJson() => _$ArticleItemToJson(this);
 
 }
 

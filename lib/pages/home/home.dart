@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fastodon/public.dart';
-import 'model/home_line.dart';
+import 'package:fastodon/models/article_item.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     eventBus.off(EventBusKey.StorageSuccess);
     super.dispose();
   }
-  Widget _rowBuild(BuildContext context, HomeLine lineItem) {
+  Widget _rowBuild(BuildContext context, ArticleItem lineItem) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -126,7 +126,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         onRefresh: () => _homeTimeLine(),
         child: ListView.separated(
           itemBuilder: (BuildContext context, int index) {
-            HomeLine lineItem =HomeLine.fromJson(_homeTimeLineList[index]);
+            ArticleItem lineItem = ArticleItem.fromJson(_homeTimeLineList[index]);
             return _rowBuild(context, lineItem);
           },
           itemCount: _homeTimeLineList.length,
