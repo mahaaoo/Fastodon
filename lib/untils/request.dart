@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'local_storage.dart';
-import 'package:fastodon/constant/storage_key.dart';
+import 'package:fastodon/models/user.dart';
 
 class Request {
   static void get({String url, Function callBack,
@@ -19,11 +18,13 @@ class Request {
     if (header != null && header.isNotEmpty) {
       dio.options.headers = header;
     }
+
+    print(dio.options.baseUrl);
+    print(dio.options.headers);
     try {
-      Response<Map>response = await dio.get(url);
+      Response response = await dio.get(url);
       _handleResponse(callBack, response, errorCallBack);
     } catch (exception) {
-      print(exception);
       _handError(errorCallBack, exception.toString());
     }
   }
@@ -36,14 +37,15 @@ class Request {
     });
     var dio = Request.createDio();
     try {
-      Response<Map> response = await dio.post(url, data: formData);
+      Response response = await dio.post(url, data: formData);
+      print(response);
       _handleResponse(callBack, response, errorCallBack);
     } catch (exception) {
       _handError(errorCallBack, exception.toString());
     }
   }
 
-  static void _handleResponse(Function callBack, Response<Map> response, Function errorCallBack) {
+  static void _handleResponse(Function callBack, Response response, Function errorCallBack) {
       int statusCode = response.statusCode;
       String errorMsg = "";
       //处理错误部分
@@ -66,6 +68,32 @@ class Request {
   }
 
   static Dio createDio() {
-    return Dio();
+    var dio = new Dio();
+
+    User user = new User();
+    String userHeader = user.getToken();
+    String urlHost = user.getHost();
+
+    if (userHeader !=null || urlHost !=null) {
+      dio.options.headers = {
+        'Authorization' : userHeader
+      };
+      dio.options.baseUrl = urlHost;
+    }
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest:(RequestOptions options){
+        return options; //continue
+      },
+      onResponse:(Response response) {
+        print('返回之前');
+        return response; // continue
+      },
+      onError: (DioError e) {
+        // 当请求失败时做一些预处理
+        return e;//continue
+      }
+    ));
+
+    return dio;
   }
 }
