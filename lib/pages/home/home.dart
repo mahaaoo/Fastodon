@@ -77,7 +77,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             Baseline(
                               baseline: 20,
                               baselineType: TextBaseline.alphabetic,
-                              child: Text('@' + lineItem.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyTitle)),
+                              child: Text('@' + lineItem.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
                             ),
                           ],
                         ),
@@ -87,7 +87,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         )
                       ],
                     ),
-                    Text('1分钟前',style: TextStyle(fontSize: 13, color: MyColor.greyTitle)),                
+                    Text('1分钟前',style: TextStyle(fontSize: 13, color: MyColor.greyText)),                
                   ],
                 ),
             ),
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           },
           itemCount: _homeTimeLineList.length,
           separatorBuilder: (BuildContext context, int index) {
-            return Divider(height: 1.0, color: MyColor.backgroundColor);
+            return Divider(height: 1.0, color: MyColor.dividerLineColor);
           },
         )
       ),

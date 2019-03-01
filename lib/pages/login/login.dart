@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
         gravity: ToastGravity.BOTTOM,
         timeInSecForIos: 1,
         backgroundColor: MyColor.error,
-        textColor: MyColor.white,
+        textColor: MyColor.loginWhite,
         fontSize: 16.0
       );
     });
@@ -99,11 +99,11 @@ class _LoginState extends State<Login> {
   Widget _showButtonLoading(BuildContext context) {
     if (_clickButton) {
       return SpinKitThreeBounce(
-        color: MyColor.primary,
+        color: MyColor.loginPrimary,
         size: 23,
       );
     }
-    return Text('登录Mastodon账号', style:TextStyle(fontSize: 16, color:  MyColor.primary));
+    return Text('登录Mastodon账号', style:TextStyle(fontSize: 16, color:  MyColor.loginPrimary));
   }
 
   void _showAboutSheet(BuildContext context) {
@@ -121,7 +121,7 @@ class _LoginState extends State<Login> {
                 height: 8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(4)),
-                  color: MyColor.gray
+                  color: Colors.grey[300],
                 ),
               ),
               Padding(
@@ -139,7 +139,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding:false,
-      backgroundColor: MyColor.primary,
+      backgroundColor: MyColor.loginPrimary,
       body: Container(
         child: Column(
           children: <Widget>[
@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
               child: Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Center(
-                    child: Text('Mastodon', style: TextStyle(fontSize: 20, color: MyColor.white)),
+                    child: Text('Mastodon', style: TextStyle(fontSize: 20, color: MyColor.loginWhite)),
                   ),
               )
             ),
@@ -157,7 +157,7 @@ class _LoginState extends State<Login> {
               margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2))),
               elevation: 5,
-              color: Colors.white,
+              color: MyColor.loginWhite,
               child: Row(
                 children: <Widget>[
                   Container(
@@ -199,7 +199,7 @@ class _LoginState extends State<Login> {
                         padding: EdgeInsets.all(10),
                         child: _showButtonLoading(context), 
                       ),
-                      color: Colors.white,
+                      color: MyColor.loginWhite,
                     ),
                   ),
                 ],
@@ -216,7 +216,7 @@ class _LoginState extends State<Login> {
                     },
                     child: Container(
                       child: Center(
-                        child: Text('关于Mastodon', style: TextStyle(color: MyColor.white)),
+                        child: Text('关于Mastodon', style: TextStyle(color: MyColor.loginWhite)),
                       ),
                     ),
                   ),
@@ -226,7 +226,7 @@ class _LoginState extends State<Login> {
                     },
                     child: Container(
                       child: Center(
-                        child: Text('选择域名', style: TextStyle(color: MyColor.white)),
+                        child: Text('选择域名', style: TextStyle(color: MyColor.loginWhite)),
                       ),
                     ),
                   ),

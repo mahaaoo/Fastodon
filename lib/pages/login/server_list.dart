@@ -66,7 +66,7 @@ class _ServerListState extends State<ServerList>  {
         AppNavigate.pop(context, param: item);
       },
       child: Container(
-        color: MyColor.white,
+        color: MyColor.loginWhite,
         child: Row(
           children: <Widget>[
             Container(
@@ -131,7 +131,7 @@ class _ServerListState extends State<ServerList>  {
   Widget _loadingRequest(BuildContext context) {
     if(_serverList.length == 0) {
       return SpinKitThreeBounce(
-        color: MyColor.primary,
+        color: MyColor.loginPrimary,
         size: 50.0,
       );
     }
@@ -140,7 +140,7 @@ class _ServerListState extends State<ServerList>  {
         child: Column(
           children: <Widget>[
             Container(
-              color: MyColor.backgroundColor,
+              color: MyColor.loginBackgroundColor,
               padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
               child: Text(noticeString, style: TextStyle(fontSize: 12),), 
             ),
@@ -154,7 +154,7 @@ class _ServerListState extends State<ServerList>  {
                 separatorBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: Divider(height: 1.0, color: MyColor.backgroundColor),
+                    child: Divider(height: 1.0, color: MyColor.loginBackgroundColor),
                   );
                 },
               ),
@@ -167,10 +167,10 @@ class _ServerListState extends State<ServerList>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.white,
+      backgroundColor: MyColor.loginWhite,
       appBar: AppBar(
-        backgroundColor: MyColor.primary,
-        title: Text('选择节点', style: TextStyle(color: MyColor.white),),
+        backgroundColor: MyColor.loginPrimary,
+        title: Text('选择节点', style: TextStyle(color: MyColor.loginWhite),),
         toolbarOpacity: 1,
         actions: <Widget>[
           Padding(
