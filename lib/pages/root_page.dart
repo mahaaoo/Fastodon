@@ -50,10 +50,10 @@ class _RootPageState extends State<RootPage> {
     Icon(Icons.settings),
   ];
   List<Icon> _tabSelectedImages = [
-    Icon(Icons.home),
-    Icon(Icons.people),
-    Icon(Icons.notifications),
-    Icon(Icons.settings),
+    Icon(Icons.home, color: MyColor.mainColor),
+    Icon(Icons.people, color: MyColor.mainColor),
+    Icon(Icons.notifications, color: MyColor.mainColor),
+    Icon(Icons.settings, color: MyColor.mainColor),
   ];
 
   Icon getTabIcon(int index) {

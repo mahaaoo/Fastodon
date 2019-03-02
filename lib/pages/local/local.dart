@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'local_timeline.dart';
 import 'public_timeline.dart';
+import 'package:fastodon/public.dart';
 
 class Local extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: MyColor.mainColor,
           title: Text('热门'),
           bottom: PreferredSize(
             preferredSize: Size(0, MediaQuery.of(context).padding.top + 16),
@@ -24,10 +26,11 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
               color: Colors.white,
               height: 35,
               child: TabBar(
-                labelStyle: TextStyle(fontSize: 16),
+                labelColor: MyColor.mainColor,
+                labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                unselectedLabelColor: MyColor.greyText,
+                indicatorColor: MyColor.tabIndicatorColor,
                 indicatorSize: TabBarIndicatorSize.label,
-                unselectedLabelColor: Colors.grey,
-                indicatorColor: Colors.blue,
                 indicatorWeight: 3,
                 tabs: [
                   Tab(text: '本地'),

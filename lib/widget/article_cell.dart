@@ -1,44 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:fastodon/public.dart';
 import 'package:fastodon/models/article_item.dart';
+import 'package:fastodon/public.dart';
 
-class Home extends StatefulWidget {
+class ArticleCell extends StatefulWidget {
+  ArticleCell({Key key, this.item}) : super(key: key);
+
+  final ArticleItem item;
+
   @override
-  _HomeState createState() => _HomeState();
+  _ArticleCellState createState() => _ArticleCellState();
 }
 
-class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
-  List _homeTimeLineList = [];
-  
+class _ArticleCellState extends State<ArticleCell> {
   @override
-  bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    // 隐藏登录弹出页
-    eventBus.on(EventBusKey.StorageSuccess, (arg) {
-      _homeTimeLine();
-    });
-  }
-
-  Future<void> _homeTimeLine() async {
-    Request.get(url: Api.HomeTimeLine, callBack: (data) {
-       setState(() {
-         _homeTimeLineList = data;
-       });
-    });
-  }
-
-  @override
-  void dispose() {
-    eventBus.off(EventBusKey.StorageSuccess);
-    super.dispose();
-  }
-  
-  Widget _rowBuild(BuildContext context, ArticleItem lineItem) {
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -48,7 +25,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
               padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: ClipRRect(
                 child: new CachedNetworkImage(
-                    imageUrl: lineItem.account.avatarStatic,
+                    imageUrl: widget.item.account.avatarStatic,
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
@@ -72,13 +49,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             Baseline(
                               baseline: 20,
                               baselineType: TextBaseline.alphabetic,
-                              child: Text(lineItem.account.displayName, style: TextStyle(fontSize: 16)),
+                              child: Text(widget.item.account.displayName, style: TextStyle(fontSize: 16)),
                             ),
                             SizedBox(width: 5),
                             Baseline(
                               baseline: 20,
                               baselineType: TextBaseline.alphabetic,
-                              child: Text('@' + lineItem.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
+                              child: Text('@' + widget.item.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
                             ),
                           ],
                         ),
@@ -99,7 +76,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         Padding(
           padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Html(
-            data: lineItem.content,
+            data: widget.item.content,
           ),
         ),
         Row(
@@ -112,30 +89,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         ),
         SizedBox(height: 10)
       ],
-    );
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('首页'),
-        backgroundColor: MyColor.mainColor,
-      ),
-      body: RefreshIndicator(
-        onRefresh: () => _homeTimeLine(),
-        child: ListView.separated(
-          itemBuilder: (BuildContext context, int index) {
-            ArticleItem lineItem = ArticleItem.fromJson(_homeTimeLineList[index]);
-            return _rowBuild(context, lineItem);
-          },
-          itemCount: _homeTimeLineList.length,
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(height: 1.0, color: MyColor.dividerLineColor);
-          },
-        )
-      ),
     );
   }
 }
