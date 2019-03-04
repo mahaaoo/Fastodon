@@ -10,6 +10,8 @@ class MyColor {
   static Color tabIndicatorColor = Colors.blue;
   static Color error = Colors.red;
   static Color greyText = Colors.grey[500];
-  static Color homeIconColor = Colors.grey[500];
+  static Color timelineUnIconColor = Colors.grey[500];
   static Color dividerLineColor = Color.fromRGBO(240, 240, 240, 1);
+  static Color unLoadWidgetInstead = Colors.grey[350];
+  static Color widgetDefaultColor = Colors.white;
 }

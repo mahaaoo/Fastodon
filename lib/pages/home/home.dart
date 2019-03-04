@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fastodon/public.dart';
 import 'package:fastodon/widget/article_list.dart';
-import 'package:fastodon/widget/loading_widget.dart';
 
 class Home extends StatefulWidget {
   @override

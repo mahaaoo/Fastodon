@@ -17,5 +17,4 @@ class _LocalTimelineState extends State<LocalTimeline> with AutomaticKeepAliveCl
       timelineHost: Api.LocalTimeLine,
     );
   }
-
 }

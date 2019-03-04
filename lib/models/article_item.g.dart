@@ -38,7 +38,8 @@ ArticleItem _$ArticleItemFromJson(Map<String, dynamic> json) {
           : Card.fromJson(json['card'] as Map<String, dynamic>));
 }
 
-Map<String, dynamic> _$ArticleItemToJson(ArticleItem instance) => <String, dynamic>{
+Map<String, dynamic> _$ArticleItemToJson(ArticleItem instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'created_at': instance.createdAt,
       'sensitive': instance.sensitive,

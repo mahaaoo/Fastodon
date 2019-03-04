@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:fastodon/public.dart';
-import 'package:fastodon/widget/loading_widget.dart';
 import 'package:fastodon/models/article_item.dart';
 import 'article_cell.dart';
 

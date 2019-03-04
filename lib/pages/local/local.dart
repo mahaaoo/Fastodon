@@ -9,6 +9,24 @@ class Local extends StatefulWidget {
 }
 
 class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
+  bool _showTab = false;
+  
+  @override
+  void initState() {
+    super.initState();
+    eventBus.on(EventBusKey.StorageSuccess, (arg) {
+      setState(() {
+        _showTab = true;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    eventBus.off(EventBusKey.StorageSuccess);
+    super.dispose();
+  }
+
   @override
   bool get wantKeepAlive => true;
 
@@ -41,10 +59,15 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
           ),
           elevation: 0,
         ),
-        body: TabBarView(children: [
-          LocalTimeline(),
-          PublicTimeline(),
-        ]),
+        body: TabBarView(
+          children: _showTab == false ? [
+            Container(),
+            Container(),
+          ] : [
+            LocalTimeline(),
+            PublicTimeline(),
+          ]
+        ),
       ),
     );
   }

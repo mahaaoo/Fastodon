@@ -13,3 +13,6 @@ export 'package:fastodon/constant/storage_key.dart';
 export 'package:fastodon/constant/event_bus_key.dart';
 export 'package:fastodon/constant/api.dart';
 export 'package:fastodon/constant/app_config.dart';
+
+// widget
+export 'package:fastodon/widget/loading_widget.dart';

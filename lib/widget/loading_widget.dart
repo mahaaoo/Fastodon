@@ -16,7 +16,8 @@ class LoadingWidget extends StatelessWidget {
           size: 30,
         ),
       );
+    } else {
+      return childWidget;
     }
-    return childWidget;
   }
 }
