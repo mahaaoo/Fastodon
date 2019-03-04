@@ -6,7 +6,6 @@ import 'package:fastodon/public.dart';
 
 class ArticleCell extends StatefulWidget {
   ArticleCell({Key key, this.item}) : super(key: key);
-
   final ArticleItem item;
 
   @override

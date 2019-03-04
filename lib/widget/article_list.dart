@@ -5,6 +5,9 @@ import 'package:fastodon/models/article_item.dart';
 import 'article_cell.dart';
 
 class ArticleList extends StatefulWidget {
+  ArticleList({Key key, this.timelineHost}) : super(key: key);
+  final String timelineHost;
+
   @override
   _ArticleListState createState() => _ArticleListState();
 }
@@ -12,8 +15,14 @@ class ArticleList extends StatefulWidget {
 class _ArticleListState extends State<ArticleList> {
   List _timeLineList = [];
 
+  @override 
+  void initState() {
+    super.initState();
+    _homeTimeLine();
+  }
+
   Future<void> _homeTimeLine() async {
-    Request.get(url: Api.HomeTimeLine, callBack: (data) {
+    Request.get(url: widget.timelineHost, callBack: (data) {
        setState(() {
          _timeLineList = data;
        });
