@@ -102,17 +102,17 @@ class SettingHead extends StatelessWidget {
                     Stack(
                       children: <Widget>[
                         header(context),
-                        Positioned(
-                          top: Screen.statusBarHeight(context) + 15,
-                          left: 0,
-                          width: Screen.width(context),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('个人中心', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ),
+                        // Positioned(
+                        //   top: Screen.statusBarHeight(context) + 15,
+                        //   left: 0,
+                        //   width: Screen.width(context),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: <Widget>[
+                        //       Text('个人中心', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                        //     ],
+                        //   ),
+                        // ),
                         displayName(),
                       ],
                     ),
