@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fastodon/public.dart';
+import 'package:fastodon/widget/loading_widget.dart';
 import 'package:fastodon/models/article_item.dart';
 import 'article_cell.dart';
 
@@ -14,6 +15,7 @@ class ArticleList extends StatefulWidget {
 
 class _ArticleListState extends State<ArticleList> {
   List _timeLineList = [];
+  bool _finishRequest = false;
 
   @override 
   void initState() {
@@ -25,6 +27,7 @@ class _ArticleListState extends State<ArticleList> {
     Request.get(url: widget.timelineHost, callBack: (data) {
        setState(() {
          _timeLineList = data;
+         _finishRequest = true;
        });
     });
   }
@@ -33,17 +36,20 @@ class _ArticleListState extends State<ArticleList> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () => _homeTimeLine(),
-      child: ListView.separated(
-        itemBuilder: (BuildContext context, int index) {
-          ArticleItem lineItem = ArticleItem.fromJson(_timeLineList[index]);
-          return ArticleCell(
-            item: lineItem,
-          );
-        },
-        itemCount: _timeLineList.length,
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(height: 1.0, color: MyColor.dividerLineColor);
-        },
+      child: LoadingWidget(
+        endLoading: _finishRequest,
+        childWidget: ListView.separated(
+          itemBuilder: (BuildContext context, int index) {
+            ArticleItem lineItem = ArticleItem.fromJson(_timeLineList[index]);
+            return ArticleCell(
+              item: lineItem,
+            );
+          },
+          itemCount: _timeLineList.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return Divider(height: 1.0, color: MyColor.dividerLineColor);
+          },
+        ),
       )
     );
   }

@@ -10,6 +10,7 @@ import 'models/user.dart';
 
 User user = new User();
 class MyApp extends StatelessWidget {
+  // 这是一个异步操作，必须保证单例从local中拿到数据之后，才可以发起请求
   void _showLoginWidget(BuildContext context) {
     Future<String> hostString = Storage.getString(StorageKey.HostUrl);
     Future<String> tokenString = Storage.getString(StorageKey.Token);
@@ -52,7 +53,6 @@ class MyApp extends StatelessWidget {
       }
     });
   }
-
 
   void _hideLoginWidget(BuildContext context) {
     AppNavigate.pop(context);

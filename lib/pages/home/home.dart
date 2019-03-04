@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fastodon/public.dart';
 import 'package:fastodon/widget/article_list.dart';
+import 'package:fastodon/widget/loading_widget.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,18 +31,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     super.dispose();
   }
 
-  Widget loadWidget() {
-    if (_canLoadWidget == false) {
-      return Center(
-        child: Text('登录'),
-      );
-    } else {
-      return ArticleList(
-        timelineHost: Api.HomeTimeLine,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +38,12 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         title: Text('首页'),
         backgroundColor: MyColor.mainColor,
       ),
-      body: loadWidget()
+      body: LoadingWidget(
+        endLoading: _canLoadWidget,
+        childWidget: ArticleList(
+          timelineHost: Api.HomeTimeLine,
+        ),
+      )
     );
   }
 }

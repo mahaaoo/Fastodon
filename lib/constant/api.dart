@@ -3,5 +3,7 @@ class Api {
   static String Apps = '/api/v1/apps';
   static String Token = '/oauth/token';
   static String HomeTimeLine = '/api/v1/timelines/home';
+  static String PublicTimeLine = '/api/v1/timelines/public';
+  static String LocalTimeLine = '/api/v1/timelines/public?local=true';
   static String VerifyToken = '/api/v1/apps/verify_credentials';
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fastodon/public.dart';
+import 'package:fastodon/widget/article_list.dart';
 
 class PublicTimeline extends StatefulWidget {
   @override
@@ -11,7 +13,9 @@ class _PublicTimelineState extends State<PublicTimeline> with AutomaticKeepAlive
 
   @override
   Widget build(BuildContext context) {
-    return Text('2');
+    return ArticleList(
+      timelineHost: Api.PublicTimeLine,
+    );
   }
 
 }
