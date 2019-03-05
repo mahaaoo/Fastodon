@@ -13,6 +13,23 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   bool _finishRequest = false;
   ScrollController _scrollController = ScrollController();
   // double navAlpha = 0;
+  List<String> acountTitles = ['我的收藏', '请求关注列表', '静音用户','黑名单','切换主题', 'App设置'];
+  List<String> abountTitles = ['关于本站', '关于App', '退出'];
+
+  List<Icon> acountIcons = [
+    Icon(Icons.star),
+    Icon(Icons.people),
+    Icon(Icons.volume_off),
+    Icon(Icons.not_interested), 
+    Icon(Icons.wb_sunny),
+    Icon(Icons.settings_input_svideo),//brightness_4 
+  ];
+
+  List<Icon> aboutIcons = [
+    Icon(Icons.attachment),
+    Icon(Icons.bubble_chart),
+    Icon(Icons.exit_to_app)
+  ];
 
   @override
   bool get wantKeepAlive => true;
@@ -60,12 +77,41 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
     });
   }
 
-  Widget settingItem() {
+  Widget settingItem(List<String> titles, List<Icon> icons) {
     List<Widget> _children = [];
 
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < titles.length; i++) {
       _children.add(
-        Text('asddas')
+        Column(
+          children: <Widget>[
+             Container(
+              color: MyColor.widgetDefaultColor,
+              height: 50,
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      icons[i],
+                      SizedBox(width: 10),
+                      Text(titles[i], style: TextStyle(fontSize: 15)),
+                    ],
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_right,
+                    size: 30,
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 50),
+              child: Divider(height: 1.0, color: MyColor.dividerLineColor),
+            )
+          ],
+        )
+       
       );
     }
 
@@ -105,7 +151,10 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
             SettingHead(
               account: _account,
             ),
-            settingItem()
+            SizedBox(height: 10),
+            settingItem(acountTitles, acountIcons),
+            SizedBox(height: 10),
+            settingItem(abountTitles, aboutIcons),
           ],
         ),
         // buildNavigationBar()
