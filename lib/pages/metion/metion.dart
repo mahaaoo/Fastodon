@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fastodon/public.dart';
 import 'package:fastodon/widget/refresh_load_listview.dart';
+import 'model/notificate_item.dart';
+import 'follow_cell.dart';
+import 'favourite_cell.dart';
 
 class Metion extends StatefulWidget {
   @override
@@ -30,7 +33,18 @@ class _MetionState extends State<Metion> with AutomaticKeepAliveClientMixin {
   }
 
   Widget row(int index, List data) {
-    return Text('data' + '$index');
+    NotificateItem item = NotificateItem.fromJson(data[index]);
+    if (item.type == 'follow') {
+      return FollowCell(
+        item: item,
+      );
+    } else if (item.type == 'favourite') {
+      return FavouriteCell(
+        item: item,
+      );
+    } else {
+      return Container();
+    }
   }
 
   @override

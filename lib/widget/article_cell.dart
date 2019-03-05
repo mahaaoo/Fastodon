@@ -72,7 +72,6 @@ class _ArticleCellState extends State<ArticleCell> {
                   ),
               ),
               )
-              
             ],
           ),
           Padding(
