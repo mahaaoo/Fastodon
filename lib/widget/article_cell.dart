@@ -15,6 +15,12 @@ class ArticleCell extends StatefulWidget {
 class _ArticleCellState extends State<ArticleCell> {
   @override
   Widget build(BuildContext context) {
+    String displayName = '';
+    if (widget.item.account.displayName == '' || widget.item.account.displayName.length == 0) {
+      displayName = widget.item.account.acct;
+    } else {
+      displayName = widget.item.account.displayName;
+    }
     return Container(
       color: MyColor.widgetDefaultColor,
       child: Column(
@@ -45,7 +51,7 @@ class _ArticleCellState extends State<ArticleCell> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(widget.item.account.displayName, style: TextStyle(fontSize: 16)),
+                          Text(displayName, style: TextStyle(fontSize: 16)),
                           Padding(
                             padding: EdgeInsets.only(right: 15),
                             child: Icon(Icons.more_horiz, color: MyColor.timelineUnIconColor),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fastodon/public.dart';
-import 'package:fastodon/widget/article_list.dart';
+import 'package:fastodon/widget/refresh_load_listview.dart';
+import 'package:fastodon/widget/article_cell.dart';
+import 'package:fastodon/models/article_item.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,6 +32,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     super.dispose();
   }
 
+  Widget row(int index, List data) {
+    ArticleItem lineItem = ArticleItem.fromJson(data[index]);
+    return ArticleCell(item: lineItem);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +46,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       ),
       body: LoadingWidget(
         endLoading: _canLoadWidget,
-        childWidget: ArticleList(
-          timelineHost: Api.HomeTimeLine,
-        ),
+        childWidget: RefreshLoadListView(
+          requestUrl: Api.HomeTimeLine,
+          buildRow: row,
+        )
       ),
       floatingActionButton: new Builder(builder: (BuildContext context) {
         return new FloatingActionButton(

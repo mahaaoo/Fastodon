@@ -1,18 +1,19 @@
+// 下拉刷新和上拉加载
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fastodon/public.dart';
-import 'package:fastodon/models/article_item.dart';
-import 'article_cell.dart';
 
-class ArticleList extends StatefulWidget {
-  ArticleList({
+class RefreshLoadListView extends StatefulWidget {
+  RefreshLoadListView({
     Key key, 
-    @required this.timelineHost
+    @required this.requestUrl,
+    @required this.buildRow,
   }) : super(key: key);
-  final String timelineHost;
+  final String requestUrl;
+  final Function buildRow;
 
   @override
-  _ArticleListState createState() => _ArticleListState();
+  _RefreshLoadListViewState createState() => _RefreshLoadListViewState();
 }
 
 enum ListStatus {
@@ -21,43 +22,44 @@ enum ListStatus {
   noMoreData
 }
 
-class _ArticleListState extends State<ArticleList> {
+class _RefreshLoadListViewState extends State<RefreshLoadListView> {
   ScrollController _scrollController = ScrollController();
-  List _timeLineList = [];
+  List _dataList = [];
   bool _finishRequest = false;
   ListStatus _listStatus = ListStatus.normal;
 
   @override 
   void initState() {
     super.initState();
-    _homeTimeLine(widget.timelineHost);
+    _startRequest(widget.requestUrl);
 
     _scrollController.addListener(() {
       if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent && _listStatus != ListStatus.noMoreData) {
         setState(() {
           _listStatus = ListStatus.loadingData;
         });
-        String lastCellId = ArticleItem.fromJson(_timeLineList[_timeLineList.length - 1]).id;
-        if (widget.timelineHost.contains('?')) {
-          _homeTimeLine(widget.timelineHost + '&max_id=$lastCellId');
+        String lastCellId = _dataList[_dataList.length - 1]['id'];
+        if (widget.requestUrl.contains('?')) {
+          _startRequest(widget.requestUrl + '&max_id=$lastCellId');
         } else {
-          _homeTimeLine(widget.timelineHost + '?max_id=$lastCellId');
+          _startRequest(widget.requestUrl + '?max_id=$lastCellId');
         }
       }
     });
   }
 
-  Future<void> _homeTimeLine(String url, {bool refresh}) async {
+  Future<void> _startRequest(String url, {bool refresh}) async {
     Request.get(url: url, callBack: (List data) {
+      print('发起请求');
       List combineList = [];
       if (refresh == true) {
         combineList = data;
       } else {
-        combineList = _timeLineList;
+        combineList = _dataList;
         combineList.addAll(data);
       }
       setState(() {
-        _timeLineList = combineList;
+        _dataList = combineList;
         _finishRequest = true;
         if (data.length == 0) {
           _listStatus = ListStatus.noMoreData;
@@ -94,23 +96,22 @@ class _ArticleListState extends State<ArticleList> {
   }
 
   Widget buildRow(int index) {
-    ArticleItem lineItem = ArticleItem.fromJson(_timeLineList[index]);
-    if (index == _timeLineList.length - 1) {
+    if (index == _dataList.length - 1) {
       return Column(
         children: <Widget>[
-          ArticleCell(item: lineItem),
+          widget.buildRow(index, _dataList),
           buildFooter(),
         ],
       );
     } else {
-      return ArticleCell(item: lineItem);
+      return widget.buildRow(index, _dataList);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => _homeTimeLine(widget.timelineHost, refresh: true),
+      onRefresh: () => _startRequest(widget.requestUrl, refresh: true),
       child: LoadingWidget(
         endLoading: _finishRequest,
         childWidget: ListView.separated(
@@ -118,7 +119,7 @@ class _ArticleListState extends State<ArticleList> {
           itemBuilder: (BuildContext context, int index) {
             return buildRow(index);
           },
-          itemCount: _timeLineList.length,
+          itemCount: _dataList.length,
           separatorBuilder: (BuildContext context, int index) {
             return Divider(height: 1.0, color: MyColor.dividerLineColor);
           },
