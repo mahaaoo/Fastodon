@@ -45,28 +45,23 @@ class _ArticleCellState extends State<ArticleCell> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Baseline(
-                                baseline: 20,
-                                baselineType: TextBaseline.alphabetic,
-                                child: Text(widget.item.account.displayName, style: TextStyle(fontSize: 16)),
-                              ),
-                              SizedBox(width: 5),
-                              Baseline(
-                                baseline: 20,
-                                baselineType: TextBaseline.alphabetic,
-                                child: Text('@' + widget.item.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
-                              ),
-                            ],
-                          ),
+                          Text(widget.item.account.displayName, style: TextStyle(fontSize: 16)),
                           Padding(
                             padding: EdgeInsets.only(right: 15),
                             child: Icon(Icons.more_horiz, color: MyColor.timelineUnIconColor),
                           )
                         ],
                       ),
-                      Text('1分钟前',style: TextStyle(fontSize: 13, color: MyColor.greyText)),                
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('@' + widget.item.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
+                          Padding(
+                            padding: EdgeInsets.only(right: 15),
+                            child: Text('1分钟前',style: TextStyle(fontSize: 13, color: MyColor.greyText)),
+                          )
+                        ],
+                      )
                     ],
                   ),
               ),

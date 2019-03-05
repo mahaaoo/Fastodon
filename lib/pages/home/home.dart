@@ -42,7 +42,23 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         childWidget: ArticleList(
           timelineHost: Api.HomeTimeLine,
         ),
-      )
+      ),
+      floatingActionButton: new Builder(builder: (BuildContext context) {
+        return new FloatingActionButton(
+          child: const Icon(Icons.add),
+          foregroundColor: Colors.white,
+          backgroundColor: MyColor.mainColor,
+          heroTag: null,
+          elevation: 7.0,
+          highlightElevation: 14.0,
+          onPressed: () {
+            print('发送新文章');
+          },
+          mini: false,
+          shape: new CircleBorder(),
+          isExtended: false,
+        );
+      }),
     );
   }
 }
