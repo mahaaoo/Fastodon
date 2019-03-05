@@ -12,7 +12,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   OwnerAccount _account;
   bool _finishRequest = false;
   ScrollController _scrollController = ScrollController();
-  double navAlpha = 0;
+  // double navAlpha = 0;
 
   @override
   bool get wantKeepAlive => true;
@@ -24,25 +24,24 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
       _getMyAccount();
     });
 
-    _scrollController.addListener(() {
-      var offset = _scrollController.offset;
-      if (offset < 0) {
-        if (navAlpha != 0) {
-          setState(() {
-            navAlpha = 0;
-          });
-        }
-      } else if (offset < 50) {
-        setState(() {
-          navAlpha = 1 - (50 - offset) / 50;
-        });
-      } else if (navAlpha != 1) {
-        setState(() {
-          navAlpha = 1;
-        });
-      }
-    });
-
+    // _scrollController.addListener(() {
+    //   var offset = _scrollController.offset;
+    //   if (offset < 0) {
+    //     if (navAlpha != 0) {
+    //       setState(() {
+    //         navAlpha = 0;
+    //       });
+    //     }
+    //   } else if (offset < 50) {
+    //     setState(() {
+    //       navAlpha = 1 - (50 - offset) / 50;
+    //     });
+    //   } else if (navAlpha != 1) {
+    //     setState(() {
+    //       navAlpha = 1;
+    //     });
+    //   }
+    // });
   }
 
   @override
@@ -75,26 +74,26 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  Widget buildNavigationBar() {
-    return Positioned(
-      top: 0,
-      left: 0,
-      child: Opacity(
-        opacity: navAlpha,
-        child: Container(
-          width: Screen.width(context),
-          height: Screen.navigationBarHeight(context),
-          color: MyColor.mainColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('个人中心', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))
-            ],
-          ),
-        ),
-      )
-    );
-  }
+  // Widget buildNavigationBar() {
+  //   return Positioned(
+  //     top: 0,
+  //     left: 0,
+  //     child: Opacity(
+  //       opacity: navAlpha,
+  //       child: Container(
+  //         width: Screen.width(context),
+  //         height: Screen.navigationBarHeight(context),
+  //         color: MyColor.mainColor,
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: <Widget>[
+  //             Text('个人中心', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))
+  //           ],
+  //         ),
+  //       ),
+  //     )
+  //   );
+  // }
 
   Widget settingWidget() {
     return Stack(
@@ -109,7 +108,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
             settingItem()
           ],
         ),
-        buildNavigationBar()
+        // buildNavigationBar()
       ],
     );
   }
