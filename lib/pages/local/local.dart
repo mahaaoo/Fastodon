@@ -14,7 +14,7 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    eventBus.on(EventBusKey.StorageSuccess, (arg) {
+    eventBus.on(EventBusKey.LoadLoginMegSuccess, (arg) {
       setState(() {
         _showTab = true;
       });
@@ -23,7 +23,7 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
 
   @override
   void dispose() {
-    eventBus.off(EventBusKey.StorageSuccess);
+    eventBus.off(EventBusKey.LoadLoginMegSuccess);
     super.dispose();
   }
 

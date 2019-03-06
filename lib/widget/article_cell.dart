@@ -54,7 +54,7 @@ class _ArticleCellState extends State<ArticleCell> {
                           Text(displayName, style: TextStyle(fontSize: 16)),
                           Padding(
                             padding: EdgeInsets.only(right: 15),
-                            child: Icon(Icons.more_horiz, color: MyColor.timelineUnIconColor),
+                            child: Icon(Icons.keyboard_arrow_down , color: MyColor.timelineUnIconColor),
                           )
                         ],
                       ),

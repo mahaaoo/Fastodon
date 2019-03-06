@@ -18,8 +18,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    // 隐藏登录弹出页
-    eventBus.on(EventBusKey.StorageSuccess, (arg) {
+    eventBus.on(EventBusKey.LoadLoginMegSuccess, (arg) {
       setState(() {
         _canLoadWidget = true;
       });
@@ -28,13 +27,17 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   void dispose() {
-    eventBus.off(EventBusKey.StorageSuccess);
+    eventBus.off(EventBusKey.LoadLoginMegSuccess);
     super.dispose();
   }
 
   Widget row(int index, List data) {
     ArticleItem lineItem = ArticleItem.fromJson(data[index]);
     return ArticleCell(item: lineItem);
+  }
+
+  void showNewArtical() {
+    eventBus.emit(EventBusKey.ShowNewArticalWidget);
   }
 
   @override
@@ -60,6 +63,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           elevation: 7.0,
           highlightElevation: 14.0,
           onPressed: () {
+            showNewArtical();
           },
           mini: false,
           shape: new CircleBorder(),

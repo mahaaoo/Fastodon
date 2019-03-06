@@ -12,12 +12,14 @@ class RootPage extends StatefulWidget {
 
   const RootPage({
     Key key,
-    this.showWidget,
+    this.showLogin,
     this.hideWidget,
+    this.showNewArtical
   }) : super(key: key);
 
-  final Function showWidget;
+  final Function showLogin;
   final Function hideWidget;
+  final Function showNewArtical;
 
   @override
   _RootPageState createState() => _RootPageState();
@@ -30,16 +32,20 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
-    widget.showWidget();
+    widget.showLogin();
     // 隐藏登录弹出页
-    eventBus.on(EventBusKey.LoginSuccess, (arg) {
+    eventBus.on(EventBusKey.HideLoginWidegt, (arg) {
       widget.hideWidget();
+    });
+    eventBus.on(EventBusKey.ShowNewArticalWidget, (arg) {
+      widget.showNewArtical();
     });
   }
 
   @override
   void dispose() {
-    eventBus.off(EventBusKey.LoginSuccess);
+    eventBus.off(EventBusKey.HideLoginWidegt);
+    eventBus.off(EventBusKey.ShowNewArticalWidget);
     super.dispose();
   }
 

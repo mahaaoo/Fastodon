@@ -50,7 +50,6 @@ class _RefreshLoadListViewState extends State<RefreshLoadListView> {
 
   Future<void> _startRequest(String url, {bool refresh}) async {
     Request.get(url: url, callBack: (List data) {
-      print('发起请求');
       List combineList = [];
       if (refresh == true) {
         combineList = data;

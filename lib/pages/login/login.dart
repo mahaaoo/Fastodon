@@ -74,7 +74,7 @@ class _LoginState extends State<Login> {
       String token = '${getToken.tokenType} ${getToken.accessToken}';
       Storage.save(StorageKey.Token, token);
       Storage.save(StorageKey.HostUrl, hostUrl);
-      eventBus.emit(EventBusKey.LoginSuccess);
+      eventBus.emit(EventBusKey.HideLoginWidegt);
     });
   }
 

@@ -19,7 +19,7 @@ class _MetionState extends State<Metion> with AutomaticKeepAliveClientMixin {
   void initState() {
     super.initState();
     // 隐藏登录弹出页
-    eventBus.on(EventBusKey.StorageSuccess, (arg) {
+    eventBus.on(EventBusKey.LoadLoginMegSuccess, (arg) {
       setState(() {
         _canLoadWidget = true;
       });
@@ -28,7 +28,7 @@ class _MetionState extends State<Metion> with AutomaticKeepAliveClientMixin {
 
   @override
   void dispose() {
-    eventBus.off(EventBusKey.StorageSuccess);
+    eventBus.off(EventBusKey.LoadLoginMegSuccess);
     super.dispose();
   }
 

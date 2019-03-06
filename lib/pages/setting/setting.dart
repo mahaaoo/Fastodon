@@ -37,7 +37,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    eventBus.on(EventBusKey.StorageSuccess, (arg) {
+    eventBus.on(EventBusKey.LoadLoginMegSuccess, (arg) {
       _getMyAccount();
     });
 
@@ -63,7 +63,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
 
   @override
   void dispose() {
-    eventBus.off(EventBusKey.StorageSuccess);
+    eventBus.off(EventBusKey.LoadLoginMegSuccess);
     super.dispose();
   }
 

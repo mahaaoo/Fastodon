@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/root_page.dart';
 import 'pages/login/login.dart';
+import 'pages/home/new_article.dart';
 
 import 'package:fastodon/public.dart';
 import 'package:fastodon/untils/local_storage.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
   Future<void> _verifyToken(BuildContext context) async {
     Request.get(url: Api.VerifyToken, callBack: (data) {
       if(data['name'] == AppConfig.ClientName) {
-        eventBus.emit(EventBusKey.StorageSuccess);
+        eventBus.emit(EventBusKey.LoadLoginMegSuccess);
       } else {
         // token已失效，删除本地所有token信息
         Storage.removeString(StorageKey.HostUrl);
@@ -53,6 +54,15 @@ class MyApp extends StatelessWidget {
       }
     });
   }
+  
+  void _showNewArticalWidget(BuildContext context) {
+    showBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return NewArticle();
+      }
+    );
+  }
 
   void _hideLoginWidget(BuildContext context) {
     AppNavigate.pop(context);
@@ -65,12 +75,15 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Builder(
           builder: (context) => RootPage(
-            showWidget: () {
+            showLogin: () {
               _showLoginWidget(context);
+            },
+            showNewArtical: () {
+              _showNewArticalWidget(context);
             },
             hideWidget: () {
               _hideLoginWidget(context);
-            }
+            },
           )
         )
       ),
