@@ -17,8 +17,11 @@ class RefreshLoadListView extends StatefulWidget {
 }
 
 enum ListStatus {
+  // listview处于正常状态
   normal,
+  // listview正在加载中
   loadingData,
+  // listview已经没有更多的数据了
   noMoreData
 }
 
@@ -33,12 +36,14 @@ class _RefreshLoadListViewState extends State<RefreshLoadListView> {
     super.initState();
     _startRequest(widget.requestUrl);
 
+// 监听listview垂直滚动距离，根据滚动的位置判断是否接近listview底端，实现下拉加载
     _scrollController.addListener(() {
       if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent && _listStatus != ListStatus.noMoreData) {
         setState(() {
           _listStatus = ListStatus.loadingData;
         });
         String lastCellId = _dataList[_dataList.length - 1]['id'];
+        // get请求中是否已经包含了其他的参数
         if (widget.requestUrl.contains('?')) {
           _startRequest(widget.requestUrl + '&max_id=$lastCellId');
         } else {
@@ -51,6 +56,8 @@ class _RefreshLoadListViewState extends State<RefreshLoadListView> {
   Future<void> _startRequest(String url, {bool refresh}) async {
     Request.get(url: url, callBack: (List data) {
       List combineList = [];
+      // 下拉刷新的时候，只需要将新的数组赋值到数据list中
+      // 上拉加载的时候，需要将新的数组添加到现有数据list中
       if (refresh == true) {
         combineList = data;
       } else {

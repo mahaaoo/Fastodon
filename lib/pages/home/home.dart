@@ -54,7 +54,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           buildRow: row,
         )
       ),
-      floatingActionButton: Builder(builder: (BuildContext context) {
+      floatingActionButton: _canLoadWidget == true ? 
+        Builder(builder: (BuildContext context) {
         return FloatingActionButton(
           child: Icon(Icons.mode_edit),
           foregroundColor: Colors.white,
@@ -69,7 +70,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           shape: new CircleBorder(),
           isExtended: false,
         );
-      }),
+      }) : Container()
     );
   }
 }

@@ -37,6 +37,7 @@ class _RootPageState extends State<RootPage> {
     eventBus.on(EventBusKey.HideLoginWidegt, (arg) {
       widget.hideWidget();
     });
+    // 弹出发送嘟文页面
     eventBus.on(EventBusKey.ShowNewArticalWidget, (arg) {
       widget.showNewArtical();
     });

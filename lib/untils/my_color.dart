@@ -14,4 +14,5 @@ class MyColor {
   static Color dividerLineColor = Color.fromRGBO(240, 240, 240, 1);
   static Color unLoadWidgetInstead = Colors.grey[350];
   static Color widgetDefaultColor = Colors.white;
+  static Color newArticalTextFieldColor = Color.fromRGBO(240, 240, 240, 1);
 }

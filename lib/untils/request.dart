@@ -35,7 +35,6 @@ class Request {
     var dio = Request.createDio();
     try {
       Response response = await dio.post(url, data: formData);
-      print(response);
       _handleResponse(callBack, response, errorCallBack);
     } catch (exception) {
       _handError(errorCallBack, exception.toString());
@@ -77,8 +76,10 @@ class Request {
       };
       dio.options.baseUrl = urlHost;
     }
+    // dio拦截器
     dio.interceptors.add(InterceptorsWrapper(
       onRequest:(RequestOptions options){
+        print(options.uri);
         return options; //continue
       },
       onResponse:(Response response) {
