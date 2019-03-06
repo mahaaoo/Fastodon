@@ -51,16 +51,15 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           buildRow: row,
         )
       ),
-      floatingActionButton: new Builder(builder: (BuildContext context) {
-        return new FloatingActionButton(
-          child: const Icon(Icons.add),
+      floatingActionButton: Builder(builder: (BuildContext context) {
+        return FloatingActionButton(
+          child: Icon(Icons.mode_edit),
           foregroundColor: Colors.white,
           backgroundColor: MyColor.mainColor,
           heroTag: null,
           elevation: 7.0,
           highlightElevation: 14.0,
           onPressed: () {
-            print('发送新文章');
           },
           mini: false,
           shape: new CircleBorder(),

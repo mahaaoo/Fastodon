@@ -64,7 +64,7 @@ class _ArticleCellState extends State<ArticleCell> {
                           Text('@' + widget.item.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
                           Padding(
                             padding: EdgeInsets.only(right: 15),
-                            child: Text('1分钟前',style: TextStyle(fontSize: 13, color: MyColor.greyText)),
+                            child: Text(DateUntil.dateTime(widget.item.createdAt) ,style: TextStyle(fontSize: 13, color: MyColor.greyText)),
                           )
                         ],
                       )
