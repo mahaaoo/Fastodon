@@ -22,9 +22,20 @@ class FavouriteCell extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(80, 10, 0, 0),
-            child: Text(item.account.displayName + '收藏了你的嘟文', style: TextStyle(fontSize: 16),),
+          SizedBox(height: 10),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: 80,
+                child: Center(
+                  child: Icon(Icons.favorite, color: Colors.red,),
+                ),
+              ),
+              Expanded(
+                child: Text(item.account.displayName + '收藏了你的嘟文', style: TextStyle(fontSize: 16),),
+              ),
+            ],
           ),
           Row(
             children: <Widget>[

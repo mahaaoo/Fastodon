@@ -68,7 +68,6 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(),
       body: IndexedStack(
         children: <Widget>[
           Home(),

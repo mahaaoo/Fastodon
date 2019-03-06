@@ -85,7 +85,7 @@ class _ArticleCellState extends State<ArticleCell> {
             children: <Widget>[
               Icon(Icons.reply, color: MyColor.timelineUnIconColor),
               Icon(Icons.repeat, color: MyColor.timelineUnIconColor),
-              Icon(Icons.star, color: MyColor.timelineUnIconColor),
+              Icon(Icons.favorite_border, color: MyColor.timelineUnIconColor),
             ],
           ),
           SizedBox(height: 10)
