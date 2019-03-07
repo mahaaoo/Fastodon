@@ -28,13 +28,10 @@ class Request {
 
   static void post({String url, Map params, Function callBack,
       Function errorCallBack}) async {
-    FormData formData = new FormData();
-    params.forEach((key,value) {
-      formData.add(key, value);
-    });
     var dio = Request.createDio();
+    print(params);
     try {
-      Response response = await dio.post(url, data: formData);
+      Response response = await dio.post(url, data: params);
       _handleResponse(callBack, response, errorCallBack);
     } catch (exception) {
       _handError(errorCallBack, exception.toString());
