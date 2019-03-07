@@ -1,16 +1,16 @@
 import 'package:fastodon/pages/setting/model/owner_account.dart';
-class Account {
+class MyAccount {
   OwnerAccount account;
   // 工厂模式
-  factory Account() =>_getInstance();
-  static Account get instance => _getInstance();
-  static Account _instance;
-  Account._internal() {
+  factory MyAccount() =>_getInstance();
+  static MyAccount get instance => _getInstance();
+  static MyAccount _instance;
+  MyAccount._internal() {
     // 
   }
-  static Account _getInstance() {
+  static MyAccount _getInstance() {
     if (_instance == null) {
-      _instance = new Account._internal();
+      _instance = new MyAccount._internal();
     }
     return _instance;
   }

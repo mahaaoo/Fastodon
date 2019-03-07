@@ -34,7 +34,7 @@ class _RootPageState extends State<RootPage> {
     super.initState();
     widget.showLogin();
     // 隐藏登录弹出页
-    eventBus.on(EventBusKey.HideLoginWidegt, (arg) {
+    eventBus.on(EventBusKey.HidePresentWidegt, (arg) {
       widget.hideWidget();
     });
     // 弹出发送嘟文页面
@@ -45,7 +45,7 @@ class _RootPageState extends State<RootPage> {
 
   @override
   void dispose() {
-    eventBus.off(EventBusKey.HideLoginWidegt);
+    eventBus.off(EventBusKey.HidePresentWidegt);
     eventBus.off(EventBusKey.ShowNewArticalWidget);
     super.dispose();
   }

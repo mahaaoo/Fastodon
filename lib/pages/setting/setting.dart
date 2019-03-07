@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fastodon/public.dart';
 import 'model/owner_account.dart';
 import 'setting_head.dart';
-import 'package:fastodon/models/account.dart';
+import 'package:fastodon/models/my_account.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   Future<void> _getMyAccount() async {
     Request.get(url: Api.OwnerAccount, callBack: (data) {
       OwnerAccount account = OwnerAccount.fromJson(data);
-      Account saveAcc = new Account();
+      MyAccount saveAcc = new MyAccount();
       saveAcc.setAcc(account);
       setState(() {
         _finishRequest = true;
