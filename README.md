@@ -29,6 +29,14 @@ Mastodon 与 Twitter 不同，Mastodon 是一个开源项目，并且允许用�
 
 OK！just fine～
 
+## 预览效果
+### iOS模拟器效果
+
+| ![](./screenshot/pic1.png) | ![](./screenshot/pic2.png) |![](./screenshot/pic3.png)  |
+|-|-|-|
+|  ![](./screenshot/pic4.png)   |   ![](./screenshot/pic5.png)   |   ![](./screenshot/pic6.png)   |
+
+
 ## 使用的开源组件
 
 | 组件  | 版本         | 说明     |
