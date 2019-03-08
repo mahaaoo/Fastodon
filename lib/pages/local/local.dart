@@ -38,6 +38,7 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
         appBar: AppBar(
           backgroundColor: MyColor.mainColor,
           title: Text('热门'),
+          centerTitle: true,
           bottom: PreferredSize(
             preferredSize: Size(0, MediaQuery.of(context).padding.top + 16),
             child: Container(

@@ -51,6 +51,7 @@ class _MetionState extends State<Metion> with AutomaticKeepAliveClientMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text('通知'),
+        centerTitle: true,
       ),
       body: LoadingWidget(
         endLoading: _canLoadWidget,

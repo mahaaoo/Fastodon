@@ -45,6 +45,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text('首页'),
+        centerTitle: true,
         backgroundColor: MyColor.mainColor,
       ),
       body: LoadingWidget(
