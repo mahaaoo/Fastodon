@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fastodon/models/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fastodon/public.dart';
 
 class Request {
   static void get({String url, Function callBack,
@@ -57,6 +59,15 @@ class Request {
     if (errorCallback != null) {
       errorCallback(errorMsg);
     }
+    Fluttertoast.showToast(
+      msg: errorMsg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 1,
+      backgroundColor: MyColor.error,
+      textColor: MyColor.loginWhite,
+      fontSize: 16.0
+    );
     print("<net> errorMsg :" + errorMsg);
   }
 
