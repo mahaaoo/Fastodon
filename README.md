@@ -32,10 +32,15 @@ OK！just fine～
 ## 预览效果
 ### iOS模拟器效果
 
-| ![](./screenshot/pic1.png) | ![](./screenshot/pic2.png) |![](./screenshot/pic3.png)  |
+| ![](./screenshot/iOS/pic_1.png) | ![](./screenshot/iOS/pic_2.png) |![](./screenshot/iOS/pic_3.png)  |
 |-|-|-|
-|  ![](./screenshot/pic4.png)   |   ![](./screenshot/pic5.png)   |   ![](./screenshot/pic6.png)   |
+|  ![](./screenshot/iOS/pic_4.png)   |   ![](./screenshot/iOS/pic_5.png)   |   ![](./screenshot/iOS/pic_6.png)   |
 
+### Android模拟器效果
+
+| ![](./screenshot/Android/pic_1.png) | ![](./screenshot/Android/pic_2.png) |![](./screenshot/Android/pic_3.png)  |
+|-|-|-|
+|  ![](./screenshot/Android/pic_4.png)   |   ![](./screenshot/Android/pic_5.png)   |   ![](./screenshot/Android/pic_6.png)   |
 
 ## 使用的开源组件
 
