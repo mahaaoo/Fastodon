@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
 
   void _hideLoginWidget(BuildContext context) {
     AppNavigate.pop(context);
+    eventBus.emit(EventBusKey.LoadLoginMegSuccess);
   }
 
   @override
