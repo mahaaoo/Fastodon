@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'model/notificate_item.dart';
+
 import 'package:fastodon/public.dart';
+
+import 'model/notificate_item.dart';
+import 'package:fastodon/widget/avatar.dart';
 
 class FavouriteCell extends StatelessWidget {
   FavouriteCell({Key key, @required this.item}) : super(key: key);
@@ -48,30 +50,13 @@ class FavouriteCell extends StatelessWidget {
                   Positioned(
                     left: 5,
                     top: 5,
-                    child: ClipRRect(
-                      child: CachedNetworkImage(
-                        imageUrl: item.status.account.avatar,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                    child: Avatar(url: item.status.account.avatar)
                   ),
                   Positioned(
                     left: 40,
                     top: 40,
-                    child: ClipRRect(
-                      child: CachedNetworkImage(
-                        imageUrl: item.account.avatar,
-                        width: 30,
-                        height: 30,
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                    child: Avatar(url: item.status.account.avatar, height: 30, width: 30)
                   )
-
                 ],
               ),
               Expanded(

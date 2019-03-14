@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:fastodon/public.dart';
-import 'model/owner_account.dart';
-import 'setting_head.dart';
+
 import 'package:fastodon/models/my_account.dart';
+import 'model/owner_account.dart';
+
+import 'user_message.dart';
+import 'setting_head.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -135,8 +139,13 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
         padding: EdgeInsets.only(top: 0),
         controller: _scrollController,
         children: <Widget>[
-          SettingHead(
-            account: _account,
+          GestureDetector(
+            onTap: () {
+              AppNavigate.push(context, UserMessage(account: _account,));
+            },
+            child: SettingHead(
+              account: _account,
+            )
           ),
           SizedBox(height: 10),
           settingItem(acountTitles, acountIcons, acountFun),

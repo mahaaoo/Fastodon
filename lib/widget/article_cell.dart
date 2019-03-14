@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:fastodon/models/article_item.dart';
+
 import 'package:fastodon/public.dart';
+
+import 'package:fastodon/models/article_item.dart';
+import 'avatar.dart';
 
 class ArticleCell extends StatefulWidget {
   ArticleCell({Key key, this.item}) : super(key: key);
@@ -30,15 +32,7 @@ class _ArticleCellState extends State<ArticleCell> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                child: ClipRRect(
-                  child: CachedNetworkImage(
-                      imageUrl: widget.item.account.avatarStatic,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+                child: Avatar(url: widget.item.account.avatarStatic)
               ),
               Expanded(
                 child: Container(

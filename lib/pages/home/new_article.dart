@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fastodon/public.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:fastodon/public.dart';
+
 import 'package:fastodon/models/my_account.dart';
 import 'package:fastodon/pages/setting/model/owner_account.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fastodon/models/article_item.dart';
 
 class NewArticle extends StatefulWidget {
@@ -34,7 +36,6 @@ class _NewArticleState extends State<NewArticle> {
   }
 
   Future<void> _getMyAccount() async {
-    print('new acticle');
     Request.get(url: Api.OwnerAccount, callBack: (data) {
       OwnerAccount account = OwnerAccount.fromJson(data);
       MyAccount saveAcc = new MyAccount();

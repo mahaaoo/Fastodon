@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:fastodon/public.dart';
+
 import 'pages/root_page.dart';
 import 'pages/login/login.dart';
 import 'pages/home/new_article.dart';
 
-import 'package:fastodon/public.dart';
-import 'package:fastodon/untils/local_storage.dart';
-import 'package:fastodon/constant/storage_key.dart';
-import 'package:fastodon/untils/app_navigate.dart';
 import 'models/user.dart';
 
 User user = new User();
@@ -36,7 +35,6 @@ class MyApp extends StatelessWidget {
 
 // 验证存储在本地的token是否可以使用
   Future<void> _verifyToken(BuildContext context) async {
-    print('调用了');
     Request.get(url: Api.VerifyToken, callBack: (data) {
       if(data['name'] == AppConfig.ClientName) {
         eventBus.emit(EventBusKey.LoadLoginMegSuccess);

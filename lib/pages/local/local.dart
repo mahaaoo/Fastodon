@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fastodon/public.dart';
+
 import 'local_timeline.dart';
 import 'public_timeline.dart';
-import 'package:fastodon/public.dart';
 
 class Local extends StatefulWidget {
   @override

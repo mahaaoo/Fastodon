@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'model/notificate_item.dart';
+
 import 'package:fastodon/public.dart';
 
+import 'model/notificate_item.dart';
+import 'package:fastodon/widget/avatar.dart';
 
 class FollowCell extends StatelessWidget {
   FollowCell({Key key, @required this.item}) : super(key: key);
@@ -44,15 +45,7 @@ class FollowCell extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(15),
-                    child: ClipRRect(
-                      child: CachedNetworkImage(
-                          imageUrl: item.account.avatar,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                    child: Avatar(url: item.account.avatar)
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fastodon/public.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
+import 'package:fastodon/public.dart';
+
 import 'model/owner_account.dart';
+import 'package:fastodon/widget/avatar.dart';
 
 class SettingHead extends StatelessWidget {
   SettingHead({Key key, this.account}) : super(key: key);
@@ -45,22 +48,6 @@ class SettingHead extends StatelessWidget {
       top: 5,
       left: 100,
       child: Text('@' + account.username, style: TextStyle(color: MyColor.greyText, fontSize: 15)),
-    );
-  }
-
-  Widget avatar() {
-    if (account == null) {
-      return Container(
-        width: 50,
-        height: 50,
-        color: MyColor.unLoadWidgetInstead,
-      );
-    }
-    return CachedNetworkImage(
-        imageUrl: account.avatar,
-        width: 50,
-        height: 50,
-        fit: BoxFit.cover,
     );
   }
 
@@ -131,10 +118,7 @@ class SettingHead extends StatelessWidget {
               Positioned(
                 left: 40,
                 top: 125,
-                child: ClipRRect(
-                  child: avatar(),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+                child: Avatar(url: account.avatar)
               )
             ],
           ),
