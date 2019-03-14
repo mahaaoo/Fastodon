@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart'; 
-  
+import 'package:fastodon/pages/setting/model/owner_account.dart';
+
 part 'article_item.g.dart';
 
 
@@ -55,7 +56,7 @@ part 'article_item.g.dart';
   Application application;
 
   @JsonKey(name: 'account')
-  Account account;
+  OwnerAccount account;
 
   @JsonKey(name: 'media_attachments')
   List<dynamic> mediaAttachments;
@@ -94,73 +95,6 @@ part 'article_item.g.dart';
   Map<String, dynamic> toJson() => _$ApplicationToJson(this);
 
 }
-
-  
-@JsonSerializable()
-  class Account extends Object {
-
-  @JsonKey(name: 'id')
-  String id;
-
-  @JsonKey(name: 'username')
-  String username;
-
-  @JsonKey(name: 'acct')
-  String acct;
-
-  @JsonKey(name: 'display_name')
-  String displayName;
-
-  @JsonKey(name: 'locked')
-  bool locked;
-
-  @JsonKey(name: 'bot')
-  bool bot;
-
-  @JsonKey(name: 'created_at')
-  String createdAt;
-
-  @JsonKey(name: 'note')
-  String note;
-
-  @JsonKey(name: 'url')
-  String url;
-
-  @JsonKey(name: 'avatar')
-  String avatar;
-
-  @JsonKey(name: 'avatar_static')
-  String avatarStatic;
-
-  @JsonKey(name: 'header')
-  String header;
-
-  @JsonKey(name: 'header_static')
-  String headerStatic;
-
-  @JsonKey(name: 'followers_count')
-  int followersCount;
-
-  @JsonKey(name: 'following_count')
-  int followingCount;
-
-  @JsonKey(name: 'statuses_count')
-  int statusesCount;
-
-  @JsonKey(name: 'emojis')
-  List<dynamic> emojis;
-
-  @JsonKey(name: 'fields')
-  List<dynamic> fields;
-
-  Account(this.id,this.username,this.acct,this.displayName,this.locked,this.bot,this.createdAt,this.note,this.url,this.avatar,this.avatarStatic,this.header,this.headerStatic,this.followersCount,this.followingCount,this.statusesCount,this.emojis,this.fields,);
-
-  factory Account.fromJson(Map<String, dynamic> srcJson) => _$AccountFromJson(srcJson);
-
-  Map<String, dynamic> toJson() => _$AccountToJson(this);
-
-}
-
   
 @JsonSerializable()
   class Card extends Object {

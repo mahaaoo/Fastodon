@@ -28,7 +28,7 @@ ArticleItem _$ArticleItemFromJson(Map<String, dynamic> json) {
           : Application.fromJson(json['application'] as Map<String, dynamic>),
       json['account'] == null
           ? null
-          : Account.fromJson(json['account'] as Map<String, dynamic>),
+          : OwnerAccount.fromJson(json['account'] as Map<String, dynamic>),
       json['media_attachments'] as List,
       json['mentions'] as List,
       json['tags'] as List,
@@ -71,48 +71,6 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$ApplicationToJson(Application instance) =>
     <String, dynamic>{'name': instance.name};
 
-Account _$AccountFromJson(Map<String, dynamic> json) {
-  return Account(
-      json['id'] as String,
-      json['username'] as String,
-      json['acct'] as String,
-      json['display_name'] as String,
-      json['locked'] as bool,
-      json['bot'] as bool,
-      json['created_at'] as String,
-      json['note'] as String,
-      json['url'] as String,
-      json['avatar'] as String,
-      json['avatar_static'] as String,
-      json['header'] as String,
-      json['header_static'] as String,
-      json['followers_count'] as int,
-      json['following_count'] as int,
-      json['statuses_count'] as int,
-      json['emojis'] as List,
-      json['fields'] as List);
-}
-
-Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
-      'id': instance.id,
-      'username': instance.username,
-      'acct': instance.acct,
-      'display_name': instance.displayName,
-      'locked': instance.locked,
-      'bot': instance.bot,
-      'created_at': instance.createdAt,
-      'note': instance.note,
-      'url': instance.url,
-      'avatar': instance.avatar,
-      'avatar_static': instance.avatarStatic,
-      'header': instance.header,
-      'header_static': instance.headerStatic,
-      'followers_count': instance.followersCount,
-      'following_count': instance.followingCount,
-      'statuses_count': instance.statusesCount,
-      'emojis': instance.emojis,
-      'fields': instance.fields
-    };
 
 Card _$CardFromJson(Map<String, dynamic> json) {
   return Card(

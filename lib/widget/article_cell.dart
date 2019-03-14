@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 
 import 'package:fastodon/public.dart';
 
+import 'package:fastodon/pages/setting/user_message.dart';
 import 'package:fastodon/models/article_item.dart';
 import 'avatar.dart';
 
@@ -32,7 +33,12 @@ class _ArticleCellState extends State<ArticleCell> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                child: Avatar(url: widget.item.account.avatarStatic)
+                child: GestureDetector(
+                  onTap: () {
+                    AppNavigate.push(context, UserMessage(account: widget.item.account));
+                  },
+                  child: Avatar(url: widget.item.account.avatarStatic),
+                )
               ),
               Expanded(
                 child: Container(
