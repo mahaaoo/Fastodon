@@ -40,7 +40,7 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
           title: Text('热门'),
           centerTitle: true,
           bottom: PreferredSize(
-            preferredSize: Size(0, MediaQuery.of(context).padding.top + 16),
+            preferredSize: Size(0, Screen.statusBarHeight(context)),
             child: Container(
               color: Colors.white,
               height: 35,

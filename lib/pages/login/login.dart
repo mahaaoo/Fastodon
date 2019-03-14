@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:fastodon/public.dart';
+import 'package:fastodon/models/user.dart';
 
 import 'model/app_credential.dart';
 import 'model/server_item.dart';
@@ -72,8 +73,13 @@ class _LoginState extends State<Login> {
     Request.post(url: '$hostUrl' + Api.Token, params: paramsMap, callBack: (data) {
       Token getToken = Token.fromJson(data);      
       String token = '${getToken.tokenType} ${getToken.accessToken}';
+      // 这里的存储是异步的，需要将token保存至单例中实时更新页面
       Storage.save(StorageKey.Token, token);
       Storage.save(StorageKey.HostUrl, hostUrl);
+
+      User user = new User();
+      user.setHost(hostUrl);
+      user.setToken(token);
       eventBus.emit(EventBusKey.HidePresentWidegt);
     });
   }

@@ -34,6 +34,7 @@ class _NewArticleState extends State<NewArticle> {
   }
 
   Future<void> _getMyAccount() async {
+    print('new acticle');
     Request.get(url: Api.OwnerAccount, callBack: (data) {
       OwnerAccount account = OwnerAccount.fromJson(data);
       MyAccount saveAcc = new MyAccount();
@@ -103,7 +104,7 @@ class _NewArticleState extends State<NewArticle> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(30),
+              padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

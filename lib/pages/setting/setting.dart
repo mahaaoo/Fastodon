@@ -32,6 +32,25 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
     Icon(Icons.exit_to_app)
   ];
 
+  List<Function> acountFun = [
+    () => {},
+    () => {},
+    () => {},
+    () => {},
+    () => {},
+    () => {},
+  ];
+
+  List<Function> aboutFun = [
+    () => {},
+    () => {},
+    () {
+      Storage.removeString(StorageKey.HostUrl);
+      Storage.removeString(StorageKey.Token);
+    },
+  ];
+
+
   @override
   bool get wantKeepAlive => true;
 
@@ -61,41 +80,46 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
     });
   }
 
-  Widget settingItem(List<String> titles, List<Icon> icons) {
+  Widget settingItem(List<String> titles, List<Icon> icons, List<Function> funList) {
     List<Widget> _children = [];
 
     for (var i = 0; i < titles.length; i++) {
       _children.add(
-        Column(
-          children: <Widget>[
-             Container(
-              color: MyColor.widgetDefaultColor,
-              height: 50,
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      icons[i],
-                      SizedBox(width: 10),
-                      Text(titles[i], style: TextStyle(fontSize: 15)),
-                    ],
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    size: 30,
-                  )
-                ],
+        GestureDetector(
+          onTap: () {
+            print('执行');
+            funList[i]();
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                color: MyColor.widgetDefaultColor,
+                height: 50,
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        icons[i],
+                        SizedBox(width: 10),
+                        Text(titles[i], style: TextStyle(fontSize: 15)),
+                      ],
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_right,
+                      size: 30,
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 50),
-              child: Divider(height: 1.0, color: MyColor.dividerLineColor),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.only(left: 50),
+                child: Divider(height: 1.0, color: MyColor.dividerLineColor),
+              )
+            ],
+          ),
         )
-       
       );
     }
 
@@ -115,9 +139,9 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
             account: _account,
           ),
           SizedBox(height: 10),
-          settingItem(acountTitles, acountIcons),
+          settingItem(acountTitles, acountIcons, acountFun),
           SizedBox(height: 10),
-          settingItem(abountTitles, aboutIcons),
+          settingItem(abountTitles, aboutIcons, aboutFun),
         ],
       ),
     );
