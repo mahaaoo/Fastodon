@@ -10,4 +10,10 @@ class Api {
   static String OwnerAccount = '/api/v1/accounts/verify_credentials'; // 该账号的信息
   static String Notifications = '/api/v1/notifications'; // 获取用户的通知信息
   static String PushNewTooT = '/api/v1/statuses'; // 发送一个新文章
+  static String Following(arg) {
+    return '/api/v1/accounts/$arg/following';
+  }  // 获取一个用户关注的用户
+  static String Follower(arg) {
+    return '/api/v1/accounts/$arg/followers';
+  }  // 获取一个用户关注的用户
 }

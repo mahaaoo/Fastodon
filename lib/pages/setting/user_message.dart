@@ -6,6 +6,7 @@ import 'package:fastodon/public.dart';
 import 'model/owner_account.dart';
 
 import 'package:fastodon/widget/avatar.dart';
+import 'following_list.dart';
 
 class UserMessage extends StatefulWidget {
   UserMessage({Key key, @required this.account}) : super(key: key);
@@ -23,8 +24,7 @@ class _UserMessageState extends State<UserMessage> {
     Center(
       child: Text('11111'),
     ),
-    Center(
-      child: Text('22222'),
+    FollowingList(
     ),
     Center(
       child: Text('33'),
@@ -69,22 +69,34 @@ class _UserMessageState extends State<UserMessage> {
                   ),
                   Container(
                     width: Screen.width(context) - 60,
-                    child: Html(
-                      data: widget.account.note,
-                      defaultTextStyle: TextStyle(color: MyColor.widgetDefaultColor, fontSize: 15)
-                    ),
+                    child: Center(
+                      child: Html(
+                        data: widget.account.note,
+                        defaultTextStyle: TextStyle(color: MyColor.widgetDefaultColor, fontSize: 15)
+                      ),
+                    )
                   )
                 ],
               ),
             ),
+            Positioned(
+              top: 50,
+              left: 20,
+              child: GestureDetector(
+                onTap: () {
+                  AppNavigate.pop(context);
+                },
+                child: Icon(Icons.arrow_back_ios , color: Colors.white),
+              )
+            )
           ],
         ),
       ],
     );
   }
 
-  Widget headerSection(int number, String title) {
-    return Padding(
+  Widget headerSection(BuildContext context, int number, String title) {
+    return Container(
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Column(
         children: <Widget>[
@@ -104,20 +116,25 @@ class _UserMessageState extends State<UserMessage> {
           Card(),
           DefaultTabController(
             length: 3,
-            child: TabBar(
-              tabs: [
-                headerSection(widget.account.statusesCount,'嘟文'),
-                headerSection(widget.account.followingCount, '关注'),
-                headerSection(widget.account.followersCount, '粉丝'),
-              ],
-              onTap: (index) {
-                setState(() {
-                  _currentWidget = index;
-                });
-              },
-            ),
+            child: Container(
+              color: Colors.white,
+              child: TabBar(
+                tabs: [
+                  headerSection(context, widget.account.statusesCount,'嘟文'),
+                  headerSection(context, widget.account.followingCount, '关注'),
+                  headerSection(context, widget.account.followersCount, '粉丝'),
+                ],
+                onTap: (index) {
+                  setState(() {
+                    _currentWidget = index;
+                  });
+                },
+              ),
+            )
           ),
-          contentList[_currentWidget]
+          Expanded(
+            child: contentList[_currentWidget],
+          )
         ],
       ),
     );

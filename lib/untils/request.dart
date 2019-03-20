@@ -91,6 +91,7 @@ class Request {
         return options; //continue
       },
       onResponse:(Response response) {
+        print('收到了json信息');
         return response; // continue
       },
       onError: (DioError e) {
