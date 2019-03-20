@@ -42,6 +42,9 @@ OK！just fine～
 |-|-|-|
 |  ![](./screenshot/Android/pic_4.png)   |   ![](./screenshot/Android/pic_5.png)   |   ![](./screenshot/Android/pic_6.png)   |
 
+## 关于测试
+如果你并不想使用Mastodon客户端，而只是想测试该App，推荐使用acg.mn进行测试。该站点无需翻墙，只需输入acg.mn后点击登录，通过邮箱即可注册完成进入首页。
+
 ## 使用的开源组件
 
 | 组件  | 版本         | 说明     |
