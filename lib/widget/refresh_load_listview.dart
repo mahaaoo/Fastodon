@@ -121,6 +121,7 @@ class _RefreshLoadListViewState extends State<RefreshLoadListView> {
       child: LoadingWidget(
         endLoading: _finishRequest,
         childWidget: ListView.separated(
+          padding: EdgeInsets.only(top: 0),
           controller: _scrollController,
           itemBuilder: (BuildContext context, int index) {
             return buildRow(index);

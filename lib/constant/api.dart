@@ -16,4 +16,7 @@ class Api {
   static String Follower(arg) {
     return '/api/v1/accounts/$arg/followers';
   }  // 获取一个用户关注的用户
+  static String UersArticle(arg, pragma) {
+    return '/api/v1/accounts/$arg/statuses?$pragma';
+  } // 获取一个用户已经发送的嘟文
 }

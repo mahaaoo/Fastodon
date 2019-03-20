@@ -5,8 +5,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:fastodon/public.dart';
 import 'model/owner_account.dart';
 
+import 'package:fastodon/widget/refresh_load_listview.dart';
+import 'package:fastodon/widget/article_cell.dart';
+import 'package:fastodon/models/article_item.dart';
 import 'package:fastodon/widget/avatar.dart';
 import 'following_list.dart';
+import 'follower_list.dart';
 
 class UserMessage extends StatefulWidget {
   UserMessage({Key key, @required this.account}) : super(key: key);
@@ -19,17 +23,6 @@ class UserMessage extends StatefulWidget {
 }
 class _UserMessageState extends State<UserMessage> {
   int _currentWidget = 0;
-
-  List<Widget> contentList = [
-    Center(
-      child: Text('11111'),
-    ),
-    FollowingList(
-    ),
-    Center(
-      child: Text('33'),
-    ),
-  ];
 
   Widget header(BuildContext context) {
     if (widget.account == null) {
@@ -107,13 +100,40 @@ class _UserMessageState extends State<UserMessage> {
     );
   }
 
+  Widget row(int index, List data) {
+    ArticleItem lineItem = ArticleItem.fromJson(data[index]);
+    return ArticleCell(item: lineItem);
+  }
+
+  Widget contentView(int index) {
+    switch (index) {
+      case 0:
+        return RefreshLoadListView(
+          requestUrl: Api.UersArticle(widget.account.id, 'exclude_replies=true'),
+          buildRow: row,
+        );
+        break;
+      case 1:
+        return FollowingList(
+          url: Api.Following(widget.account.id),
+        );
+        break;
+      case 2:
+        return FollowerList(
+          url: Api.Follower(widget.account.id),
+        );
+        break;
+      default: 
+        return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
           userHeader(context),
-          Card(),
           DefaultTabController(
             length: 3,
             child: Container(
@@ -133,7 +153,7 @@ class _UserMessageState extends State<UserMessage> {
             )
           ),
           Expanded(
-            child: contentList[_currentWidget],
+            child: contentView(_currentWidget),
           )
         ],
       ),
