@@ -7,6 +7,7 @@ import 'model/owner_account.dart';
 
 import 'user_message.dart';
 import 'setting_head.dart';
+import 'setting_cell.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -17,43 +18,6 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   OwnerAccount _account;
   bool _finishRequest = false;
   ScrollController _scrollController = ScrollController();
-
-  List<String> acountTitles = ['我的收藏', '请求关注列表', '静音用户','黑名单','切换主题', 'App设置'];
-  List<String> abountTitles = ['关于本站', '关于App', '退出'];
-
-  List<Icon> acountIcons = [
-    Icon(Icons.star),
-    Icon(Icons.people),
-    Icon(Icons.volume_off),
-    Icon(Icons.not_interested), 
-    Icon(Icons.wb_sunny),
-    Icon(Icons.settings_input_svideo),//brightness_4 
-  ];
-
-  List<Icon> aboutIcons = [
-    Icon(Icons.attachment),
-    Icon(Icons.bubble_chart),
-    Icon(Icons.exit_to_app)
-  ];
-
-  List<Function> acountFun = [
-    () => {},
-    () => {},
-    () => {},
-    () => {},
-    () => {},
-    () => {},
-  ];
-
-  List<Function> aboutFun = [
-    () => {},
-    () => {},
-    () {
-      Storage.removeString(StorageKey.HostUrl);
-      Storage.removeString(StorageKey.Token);
-    },
-  ];
-
 
   @override
   bool get wantKeepAlive => true;
@@ -84,54 +48,6 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
     });
   }
 
-  Widget settingItem(List<String> titles, List<Icon> icons, List<Function> funList) {
-    List<Widget> _children = [];
-
-    for (var i = 0; i < titles.length; i++) {
-      _children.add(
-        GestureDetector(
-          onTap: () {
-            print('执行');
-            funList[i]();
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                color: MyColor.widgetDefaultColor,
-                height: 50,
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        icons[i],
-                        SizedBox(width: 10),
-                        Text(titles[i], style: TextStyle(fontSize: 15)),
-                      ],
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_right,
-                      size: 30,
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 50),
-                child: Divider(height: 1.0, color: MyColor.dividerLineColor),
-              )
-            ],
-          ),
-        )
-      );
-    }
-
-    return Column(
-      children: _children
-    );
-  }
-
   Widget settingWidget() {
     return RefreshIndicator(
       onRefresh: () => _getMyAccount(),
@@ -148,9 +64,55 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
             )
           ),
           SizedBox(height: 10),
-          settingItem(acountTitles, acountIcons, acountFun),
+          SettingCell(
+            title: '我的收藏',
+            leftIcon: Icon(Icons.star),
+            onPress: () => {},
+          ),
+          SettingCell(
+            title: '请求关注列表',
+            leftIcon: Icon(Icons.people),
+            onPress: () => {},
+          ),
+          SettingCell(
+            title: '静音用户',
+            leftIcon: Icon(Icons.volume_off),
+            onPress: () => {},
+          ),
+          SettingCell(
+            title: '黑名单',
+            leftIcon: Icon(Icons.not_interested), 
+            onPress: () => {},
+          ),
+          SettingCell(
+            title: '切换主题',
+            leftIcon: Icon(Icons.wb_sunny),
+            onPress: () => {},
+          ),
+          SettingCell(
+            title: 'App设置',
+            leftIcon: Icon(Icons.settings_input_svideo),
+            onPress: () => {},
+          ),
           SizedBox(height: 10),
-          settingItem(abountTitles, aboutIcons, aboutFun),
+          SettingCell(
+            title: '关于本站',
+            leftIcon: Icon(Icons.attachment),
+            onPress: () => {},
+          ),
+          SettingCell(
+            title: '关于App',
+            leftIcon: Icon(Icons.bubble_chart),
+            onPress: () => {},
+          ),
+          SettingCell(
+            title: '退出',
+            leftIcon: Icon(Icons.exit_to_app),
+            onPress: () {
+              Storage.removeString(StorageKey.HostUrl);
+              Storage.removeString(StorageKey.Token);
+            },
+          ),
         ],
       ),
     );
