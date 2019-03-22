@@ -20,7 +20,7 @@ class _AboutAppState extends State<AboutApp> {
   void initState() {
     super.initState();
     mList = new List();
-    expandStateList=new List();
+    expandStateList = new List();
     for (int i = 0; i < 10; i++) {
       mList.add(i);
       expandStateList.add(ExpandStateBean(i, false));
@@ -34,25 +34,25 @@ class _AboutAppState extends State<AboutApp> {
           item.isOpen=!isExpand;
         }
       });
-
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("开源组件"),
-        ),
-        body: SingleChildScrollView(child: ExpansionPanelList(
+      appBar: AppBar(
+        title: Text("开源组件"),
+      ),
+      body: SingleChildScrollView(
+        child: ExpansionPanelList(
           children: mList.map((index) {
-            return new ExpansionPanel(
+            return ExpansionPanel(
               headerBuilder: (context, isExpanded) {
-                return new ListTile(
-                  title: new Text('我是第$index个标题'),
+                return ListTile(
+                  title: Text('我是第$index个标题'),
                 );
               },
-              body: new Padding(
+              body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Container(height: 100.0,
                   color: Colors.blue,
