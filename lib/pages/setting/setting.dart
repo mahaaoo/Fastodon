@@ -8,6 +8,7 @@ import 'model/owner_account.dart';
 import 'user_message.dart';
 import 'setting_head.dart';
 import 'setting_cell.dart';
+import 'about_app.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -103,7 +104,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
           SettingCell(
             title: '关于App',
             leftIcon: Icon(Icons.bubble_chart),
-            onPress: () => {},
+            onPress: () => AppNavigate.push(context, AboutApp()),
           ),
           SettingCell(
             title: '退出',
