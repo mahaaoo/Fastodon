@@ -9,6 +9,7 @@ import 'user_message.dart';
 import 'setting_head.dart';
 import 'setting_cell.dart';
 import 'about_app.dart';
+import 'favourites_article.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -68,7 +69,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
           SettingCell(
             title: '我的收藏',
             leftIcon: Icon(Icons.star),
-            onPress: () => {},
+            onPress: () => AppNavigate.push(context, FavoutitesArticle()),
           ),
           SettingCell(
             title: '请求关注列表',

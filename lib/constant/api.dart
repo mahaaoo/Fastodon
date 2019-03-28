@@ -19,4 +19,5 @@ class Api {
   static String UersArticle(arg, pragma) {
     return '/api/v1/accounts/$arg/statuses?$pragma';
   } // 获取一个用户已经发送的嘟文
+  static String Favourites = 'https://acg.mn/api/v1/favourites'; // 收藏的嘟文
 }
