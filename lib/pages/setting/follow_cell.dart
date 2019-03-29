@@ -5,6 +5,8 @@ import 'package:fastodon/public.dart';
 import 'package:fastodon/pages/setting/model/owner_account.dart';
 import 'package:fastodon/widget/avatar.dart';
 
+import 'package:fastodon/pages/setting/user_message.dart';
+
 class FollowCell extends StatefulWidget {
   FollowCell({Key key, this.item}) : super(key: key);
   final OwnerAccount item;
@@ -22,32 +24,37 @@ class _FollowCellState extends State<FollowCell> {
     } else {
       displayName = widget.item.displayName;
     }
-    return Container(
-      color: MyColor.widgetDefaultColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Avatar(url: widget.item.avatar)
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(displayName, style: TextStyle(fontSize: 16)),
-                  Text('@' + widget.item.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
-                ],
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 15),
-            child: Text('关注', style: TextStyle(color: MyColor.mainColor),),
-          )
-        ],
-      )
+    return GestureDetector(
+      onTap: () {
+        AppNavigate.push(context, UserMessage(account: widget.item));
+      },
+      child: Container(
+        color: MyColor.widgetDefaultColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Avatar(url: widget.item.avatar)
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(displayName, style: TextStyle(fontSize: 16)),
+                    Text('@' + widget.item.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
+                  ],
+                )
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: Text('关注', style: TextStyle(color: MyColor.mainColor),),
+            )
+          ],
+        )
+      ),
     );
   }
 }
