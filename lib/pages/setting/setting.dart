@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:fastodon/public.dart';
 
@@ -48,6 +49,36 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
         _account = account;
       });
     });
+  }
+
+  void showAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("提示"),
+          content: Text("确定要退出登录"),
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text("取消"),
+              onPressed: () {
+                Navigator.pop(context, 'Cancel');
+              }
+            ),
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text("确定"),
+              onPressed: () {
+                Storage.removeString(StorageKey.HostUrl);
+                Storage.removeString(StorageKey.Token);
+                Navigator.pop(context, 'Cancel');
+              }
+            )
+          ],
+        );
+      }
+    );
   }
 
   Widget settingWidget() {
@@ -111,8 +142,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
             title: '退出',
             leftIcon: Icon(Icons.exit_to_app),
             onPress: () {
-              Storage.removeString(StorageKey.HostUrl);
-              Storage.removeString(StorageKey.Token);
+              showAlert();
             },
           ),
         ],
