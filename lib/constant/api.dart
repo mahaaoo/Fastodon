@@ -19,5 +19,12 @@ class Api {
   static String UersArticle(arg, pragma) {
     return '/api/v1/accounts/$arg/statuses?$pragma';
   } // 获取一个用户已经发送的嘟文
-  static String Favourites = 'https://acg.mn/api/v1/favourites'; // 收藏的嘟文
+  static String Favourites = '/api/v1/favourites'; // 收藏的嘟文
+  static String Follow(arg) {
+    return '/api/v1/accounts/$arg/follow';
+  } // 关注某人
+  static String UnFollow(arg) {
+    return '/acg.mn/api/v1/accounts/$arg/unfollow';
+  } // 取关某人
+  static String Relationships = '/api/v1/accounts/relationships'; // 查看与某人的关注或者被关注情况
 }
