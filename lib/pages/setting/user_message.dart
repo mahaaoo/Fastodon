@@ -100,7 +100,6 @@ class _UserMessageState extends State<UserMessage> {
                               child: Text("关注", style: TextStyle(fontSize: 15)),
                             ),
                           ),
-                          Divider(),
                           InkWell(
                             child: Ink(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),

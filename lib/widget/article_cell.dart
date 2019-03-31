@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:fastodon/public.dart';
 
@@ -16,6 +17,40 @@ class ArticleCell extends StatefulWidget {
 }
 
 class _ArticleCellState extends State<ArticleCell> {
+
+  Widget articleContent() {
+    if (widget.item.card != null) {
+      return Padding(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: <Widget>[
+            Html(
+              data: widget.item.content,
+              onLinkTap: (url) {
+                print('点击到的链接：' + url);
+              },
+            ),
+            SizedBox(height: 15),
+            CachedNetworkImage(
+              imageUrl: widget.item.card.image,
+              fit: BoxFit.cover,
+            ),
+          ],
+        )
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.all(15),
+        child: Html(
+          data: widget.item.content,
+          onLinkTap: (url) {
+            print('点击到的链接：' + url);
+          },
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String displayName = '';
@@ -74,12 +109,7 @@ class _ArticleCellState extends State<ArticleCell> {
               )
             ],
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Html(
-              data: widget.item.content,
-            ),
-          ),
+          articleContent(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
