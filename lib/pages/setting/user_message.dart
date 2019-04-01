@@ -8,6 +8,7 @@ import 'model/owner_account.dart';
 import 'package:fastodon/widget/refresh_load_listview.dart';
 import 'package:fastodon/widget/article_cell.dart';
 import 'package:fastodon/models/article_item.dart';
+import 'package:fastodon/models/my_account.dart';
 import 'package:fastodon/widget/avatar.dart';
 import 'following_list.dart';
 import 'follower_list.dart';
@@ -39,6 +40,45 @@ class _UserMessageState extends State<UserMessage> {
         imageUrl: widget.account.header,
         fit: BoxFit.cover,
       ),
+    );
+  }
+
+  Widget more(BuildContext context) {
+    MyAccount mine = new MyAccount();
+    if (mine.account.id == widget.account.id) {
+      return Container();
+    }
+    return Positioned(
+      top: 50,
+      right: 20,
+      child: GestureDetector(
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context){
+              return new Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  InkWell(
+                    child: Ink(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Text("关注", style: TextStyle(fontSize: 15)),
+                    ),
+                  ),
+                  InkWell(
+                    child: Ink(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Text("取消关注", style: TextStyle(fontSize: 15)),
+                    ),
+                  )
+                ],
+              );
+            }
+          );
+        },
+        child: Icon(Icons.more_horiz , color: Colors.white),
+      )
     );
   }
 
@@ -82,38 +122,7 @@ class _UserMessageState extends State<UserMessage> {
                 child: Icon(Icons.arrow_back_ios , color: Colors.white),
               )
             ),
-            Positioned(
-              top: 50,
-              right: 20,
-              child: GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context){
-                      return new Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          InkWell(
-                            child: Ink(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("关注", style: TextStyle(fontSize: 15)),
-                            ),
-                          ),
-                          InkWell(
-                            child: Ink(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("取消关注", style: TextStyle(fontSize: 15)),
-                            ),
-                          )
-                        ],
-                      );
-                    }
-                  );
-                },
-                child: Icon(Icons.more_horiz , color: Colors.white),
-              )
-            ),
+            more(context),
           ],
         ),
       ],

@@ -19,7 +19,7 @@ class ArticleCell extends StatefulWidget {
 class _ArticleCellState extends State<ArticleCell> {
 
   Widget articleContent() {
-    if (widget.item.card != null) {
+    if (widget.item.card != null && widget.item.card.image != null) {
       return Padding(
         padding: EdgeInsets.all(15),
         child: Column(
