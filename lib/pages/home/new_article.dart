@@ -7,6 +7,7 @@ import 'package:fastodon/public.dart';
 import 'package:fastodon/models/my_account.dart';
 import 'package:fastodon/pages/setting/model/owner_account.dart';
 import 'package:fastodon/models/article_item.dart';
+import 'new_article_cell.dart';
 
 class NewArticle extends StatefulWidget {
   @override
@@ -18,7 +19,8 @@ class _NewArticleState extends State<NewArticle> {
   final TextEditingController _wornController = new TextEditingController();
   OwnerAccount _myAcc;
   bool _worningWords = false;
-
+  Icon _articleRange = Icon(Icons.public, size: 30);
+  String _visibility = 'public';
 
   @override
   void initState() {
@@ -53,7 +55,7 @@ class _NewArticleState extends State<NewArticle> {
     paramsMap['sensitive'] = false;
     paramsMap['spoiler_text'] = '';
     paramsMap['status'] = _controller.text;
-    paramsMap['visibility'] = 'public';
+    paramsMap['visibility'] = _visibility;
 
     Request.post(url: Api.PushNewTooT, params: paramsMap).then((data) {
       ArticleItem newItem = ArticleItem.fromJson(data);
@@ -167,7 +169,71 @@ class _NewArticleState extends State<NewArticle> {
                     children: <Widget>[
                       Icon(Icons.photo, size: 30),
                       SizedBox(width: 10,),
-                      Icon(Icons.public, size: 30),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context){
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  NewArticleCell(
+                                    title: '公开',
+                                    description: '所有人可见，并且会出现在公共时间轴上',
+                                    leftIcon: Icon(Icons.public, size: 30),
+                                    onSelect: (Icon icons) {
+                                      setState(() {
+                                        _articleRange = icons;
+                                        _visibility = 'public';
+                                      });
+                                    },
+                                    currentIcon: _articleRange,
+                                  ),
+                                  NewArticleCell(
+                                    title: '不公开',
+                                    description: '所有人可见，但不会出现在公共时间轴上',
+                                    leftIcon: Icon(Icons.vpn_lock, size: 30),
+                                    onSelect: (Icon icons) {
+                                      setState(() {
+                                        _articleRange = icons;
+                                        _visibility = 'unlisted';
+                                      });
+                                    },
+                                    currentIcon: _articleRange,
+                                  ),
+                                  NewArticleCell(
+                                    title: '仅关注者',
+                                    description: '只有关注你的用户可以看到',
+                                    leftIcon: Icon(Icons.lock, size: 30),
+                                    onSelect: (Icon icons) {
+                                      setState(() {
+                                        _articleRange = icons;
+                                        _visibility = 'private';
+                                      });
+                                    },
+                                    currentIcon: _articleRange,
+                                  ),
+                                  NewArticleCell(
+                                    title: '私信',
+                                    description: '只有被提及的用户可以看到',
+                                    leftIcon: Icon(Icons.sms, size: 30),
+                                    onSelect: (Icon icons) {
+                                      setState(() {
+                                        _articleRange = icons;
+                                      });
+                                      _visibility = 'direct';
+                                    },
+                                    currentIcon: _articleRange,
+                                  ),
+                                  SizedBox(height: Screen.bottomSafeHeight(context))
+                                ]
+                              );
+                            }
+                          );
+                        },
+                        child: _articleRange,
+                      ),
                       SizedBox(width: 10,),
                       GestureDetector(
                         onTap: () {

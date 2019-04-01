@@ -172,7 +172,7 @@ class _UserMessageState extends State<UserMessage> {
                       }
                     },
                   ),
-                  SizedBox(height: 20)
+                  SizedBox(height: Screen.bottomSafeHeight(context))
                 ],
               );
             }
