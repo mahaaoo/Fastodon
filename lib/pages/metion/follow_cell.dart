@@ -34,7 +34,7 @@ class FollowCell extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Text(item.account.displayName + '开始关注你了', style: TextStyle(fontSize: 16),),
+                child: Text(item.account.displayName + '开始关注你了', style: TextStyle(fontSize: 14),),
               ),
             ],
           ),
@@ -56,10 +56,6 @@ class FollowCell extends StatelessWidget {
                   )
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: Text('关注', style: TextStyle(color: MyColor.mainColor),),
-              )
             ],
           )
         ],

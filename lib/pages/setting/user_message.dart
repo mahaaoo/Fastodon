@@ -9,9 +9,13 @@ import 'package:fastodon/widget/refresh_load_listview.dart';
 import 'package:fastodon/widget/article_cell.dart';
 import 'package:fastodon/models/article_item.dart';
 import 'package:fastodon/models/my_account.dart';
+import 'model/relation_ship.dart';
 import 'package:fastodon/widget/avatar.dart';
 import 'following_list.dart';
 import 'follower_list.dart';
+import 'user_sheet_cell.dart';
+
+MyAccount mine = new MyAccount();
 
 class UserMessage extends StatefulWidget {
   UserMessage({Key key, @required this.account}) : super(key: key);
@@ -24,6 +28,83 @@ class UserMessage extends StatefulWidget {
 }
 class _UserMessageState extends State<UserMessage> {
   int _currentWidget = 0;
+  String _bottomSheetTitle = '未关注';
+  String _bottomSheetFunName = '关注';
+  OwnerAccount _account = mine.account;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState(); 
+    _account = widget.account;
+    if (mine.account.id != widget.account.id) {
+      _getRelationShuips();
+    }
+  }
+
+  void _changeBottomSheet(RelationShip relate) {
+    String title = '';
+    String name = '';
+
+    if (relate.followedBy == true && relate.following == true) {
+      title = '互相关注';
+      name = '取消关注';
+    } else if (relate.followedBy == false && relate.following == true) {
+      title = '已关注';
+      name = '取消关注';
+    } else if (relate.followedBy == true && relate.following == false) {
+      title = '我的粉丝';
+      name = '关注';
+    } else if (relate.followedBy == false && relate.following == false) {
+      title = '未关注';
+      name = '关注';
+    } 
+    setState(() {
+      _bottomSheetTitle = title; 
+      _bottomSheetFunName = name; 
+    });
+  }
+
+  Future<void> _getRelationShuips() async {
+    Request.get(url: Api.Relationships, params: { 'id[]' : widget.account.id }).then((data) {
+      List response = data;
+      RelationShip relate = RelationShip.fromJson(response[0]);
+      _changeBottomSheet(relate);
+    });
+  }
+
+  Future<void> _followByid() async {
+    Map paramsMap = Map();
+    paramsMap['reblogs'] = true;
+
+    Request.post(url: Api.Follow(widget.account.id), params: paramsMap).then((data) {
+      RelationShip relate = RelationShip.fromJson(data);
+      if(relate.following == true) {
+        // 关注成功
+        OwnerAccount mineAccount = mine.account;
+        mineAccount.followingCount = mine.account.followingCount + 1;
+        mine.setAcc(mineAccount);
+      }
+      _changeBottomSheet(relate);
+    });
+  }
+
+  Future<void> _unfollowByid() async {
+    Request.post(url: Api.UnFollow(widget.account.id)).then((data) {
+      RelationShip relate = RelationShip.fromJson(data);
+      if(relate.following == false) {
+        // 取关成功
+        OwnerAccount mineAccount = mine.account;
+        mineAccount.followingCount = mine.account.followingCount - 1;
+        mine.setAcc(mineAccount);
+      }
+      _changeBottomSheet(relate);
+    });
+  }
 
   Widget header(BuildContext context) {
     if (widget.account == null) {
@@ -44,7 +125,6 @@ class _UserMessageState extends State<UserMessage> {
   }
 
   Widget more(BuildContext context) {
-    MyAccount mine = new MyAccount();
     if (mine.account.id == widget.account.id) {
       return Container();
     }
@@ -60,18 +140,39 @@ class _UserMessageState extends State<UserMessage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  InkWell(
-                    child: Ink(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Text("关注", style: TextStyle(fontSize: 15)),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                    child: Center(
+                      child: Text(_bottomSheetTitle, style: TextStyle(fontSize: 13, color: MyColor.greyText)),
                     ),
                   ),
-                  InkWell(
-                    child: Ink(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Text("取消关注", style: TextStyle(fontSize: 15)),
-                    ),
-                  )
+                  UserSheetCell(
+                    title: '提及',
+                  ),
+                  UserSheetCell(
+                    title: '私信',
+                  ),
+                  UserSheetCell(
+                    title: '隐藏',
+                  ),
+                  UserSheetCell(
+                    title: '屏蔽',
+                  ),
+                  UserSheetCell(
+                    title: '举报',
+                  ),
+                  UserSheetCell(
+                    title: _bottomSheetFunName,
+                    onPress: () {
+                      if (_bottomSheetFunName == '关注') {
+                        _followByid();
+                      }
+                      if (_bottomSheetFunName == '取消关注') {
+                        _unfollowByid();
+                      }
+                    },
+                  ),
+                  SizedBox(height: 20)
                 ],
               );
             }
@@ -181,9 +282,9 @@ class _UserMessageState extends State<UserMessage> {
               color: Colors.white,
               child: TabBar(
                 tabs: [
-                  headerSection(context, widget.account.statusesCount,'嘟文'),
-                  headerSection(context, widget.account.followingCount, '关注'),
-                  headerSection(context, widget.account.followersCount, '粉丝'),
+                  headerSection(context, _account.statusesCount,'嘟文'),
+                  headerSection(context, _account.followingCount, '关注'),
+                  headerSection(context, _account.followersCount, '粉丝'),
                 ],
                 onTap: (index) {
                   setState(() {

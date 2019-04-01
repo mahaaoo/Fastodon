@@ -5,7 +5,10 @@ import 'package:fastodon/pages/setting/model/owner_account.dart';
 import 'follow_cell.dart';
 
 class FollowerList extends StatefulWidget {
-  FollowerList({Key key, this.url}) : super(key: key);
+  FollowerList({
+    Key key, 
+    this.url,
+  }) : super(key: key);
   final String url;
 
   @override

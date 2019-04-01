@@ -24,7 +24,7 @@ class Api {
     return '/api/v1/accounts/$arg/follow';
   } // 关注某人
   static String UnFollow(arg) {
-    return '/acg.mn/api/v1/accounts/$arg/unfollow';
+    return '/api/v1/accounts/$arg/unfollow';
   } // 取关某人
   static String Relationships = '/api/v1/accounts/relationships'; // 查看与某人的关注或者被关注情况
 }

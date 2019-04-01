@@ -48,10 +48,6 @@ class _FollowCellState extends State<FollowCell> {
                 )
               ],
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: Text('关注', style: TextStyle(color: MyColor.mainColor),),
-            )
           ],
         )
       ),

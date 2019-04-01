@@ -15,21 +15,21 @@ class MyApp extends StatelessWidget {
     Future<String> hostString = Storage.getString(StorageKey.HostUrl);
     Future<String> tokenString = Storage.getString(StorageKey.Token);
 // 保证本地存有host地址以及token
-    hostString.then((String host) {
-      return tokenString.then((String token) {
-        if (host == '' || host == null || token == '' || token == null) {
-          showBottomSheet(
-            context: context,
-            builder: (BuildContext context) {
-              return Login();
-            }
-          );
-        } else {
-          user.setHost(host);
-          user.setToken(token);
-          _verifyToken(context);
-        }
-      });
+    Future.wait([hostString, tokenString]).then((List results) {
+      var host = results[0];
+      var token = results[1];
+      if (host == '' || host == null || token == '' || token == null) {
+        showBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return Login();
+          }
+        );
+      } else {
+        user.setHost(host);
+        user.setToken(token);
+        _verifyToken(context);
+      }
     });
   }
 

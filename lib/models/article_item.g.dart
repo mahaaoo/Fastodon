@@ -71,7 +71,6 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$ApplicationToJson(Application instance) =>
     <String, dynamic>{'name': instance.name};
 
-
 Card _$CardFromJson(Map<String, dynamic> json) {
   return Card(
       json['url'] as String,

@@ -35,7 +35,7 @@ class FavouriteCell extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Text(item.account.displayName + '收藏了你的嘟文', style: TextStyle(fontSize: 16),),
+                child: Text(item.account.displayName + '收藏了你的嘟文', style: TextStyle(fontSize: 14),),
               ),
             ],
           ),
