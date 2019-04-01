@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
 // 验证存储在本地的token是否可以使用
   Future<void> _verifyToken(BuildContext context) async {
-    Request.get(url: Api.VerifyToken, callBack: (data) {
+    Request.get(url: Api.VerifyToken).then((data) {
       if(data['name'] == AppConfig.ClientName) {
         eventBus.emit(EventBusKey.LoadLoginMegSuccess);
       } else {

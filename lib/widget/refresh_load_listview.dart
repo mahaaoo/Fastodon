@@ -54,7 +54,7 @@ class _RefreshLoadListViewState extends State<RefreshLoadListView> {
   }
 
   Future<void> _startRequest(String url, {bool refresh}) async {
-    Request.get(url: url, callBack: (List data) {
+    Request.get(url: url).then((data) {
       List combineList = [];
       // 下拉刷新的时候，只需要将新的数组赋值到数据list中
       // 上拉加载的时候，需要将新的数组添加到现有数据list中

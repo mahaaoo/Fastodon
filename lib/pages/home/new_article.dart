@@ -36,7 +36,7 @@ class _NewArticleState extends State<NewArticle> {
   }
 
   Future<void> _getMyAccount() async {
-    Request.get(url: Api.OwnerAccount, callBack: (data) {
+    Request.get(url: Api.OwnerAccount).then((data) {
       OwnerAccount account = OwnerAccount.fromJson(data);
       MyAccount saveAcc = new MyAccount();
       saveAcc.setAcc(account);
@@ -55,7 +55,7 @@ class _NewArticleState extends State<NewArticle> {
     paramsMap['status'] = _controller.text;
     paramsMap['visibility'] = 'public';
 
-    Request.post(url: Api.PushNewTooT, params: paramsMap, callBack: (data) {
+    Request.post(url: Api.PushNewTooT, params: paramsMap).then((data) {
       ArticleItem newItem = ArticleItem.fromJson(data);
       if(newItem != null) {
         eventBus.emit(EventBusKey.HidePresentWidegt, true);

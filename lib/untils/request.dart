@@ -4,8 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fastodon/public.dart';
 
 class Request {
-  static void get({String url, Function callBack,
-      Map params, Function errorCallBack, Map header}) async {
+  static Future get({String url, Map params, Map header}) async {
     if (params != null && params.isNotEmpty) {
       StringBuffer sb = new StringBuffer("?");
       params.forEach((key, value) {
@@ -22,43 +21,33 @@ class Request {
     }
     try {
       Response response = await dio.get(url);
-      _handleResponse(callBack, response, errorCallBack);
+      if (response.statusCode != 200) {
+        var errorMsg = "网络请求错误,状态码:" + response.statusCode.toString();
+        showTotast(errorMsg);
+      } else if (response.statusCode == 200 && response != null) {
+        return response.data;
+      }
     } catch (exception) {
-      _handError(errorCallBack, exception.toString());
+      showTotast(exception.toString());
     }
   }
 
-  static void post({String url, Map params, Function callBack,
-      Function errorCallBack}) async {
+  static Future post({String url, Map params}) async {
     var dio = Request.createDio();
-    print(params);
     try {
       Response response = await dio.post(url, data: params);
-      _handleResponse(callBack, response, errorCallBack);
+      if (response.statusCode != 200) {
+        var errorMsg = "网络请求错误,状态码:" + response.statusCode.toString();
+        showTotast(errorMsg);
+      } else if (response.statusCode == 200 && response != null) {
+        return response.data;
+      }
     } catch (exception) {
-      _handError(errorCallBack, exception.toString());
+      showTotast(exception.toString());
     }
   }
 
-  static void _handleResponse(Function callBack, Response response, Function errorCallBack) {
-      int statusCode = response.statusCode;
-      String errorMsg = "";
-      //处理错误部分
-      if (statusCode != 200) {
-        errorMsg = "网络请求错误,状态码:" + statusCode.toString();
-        _handError(errorCallBack, errorMsg);
-        return;
-      }
-
-      if (callBack != null) {
-        callBack(response.data);
-      }
-  }
-
-  static void _handError(Function errorCallback, String errorMsg) {
-    if (errorCallback != null) {
-      errorCallback(errorMsg);
-    }
+  static void showTotast(String errorMsg) {
     Fluttertoast.showToast(
       msg: errorMsg,
       toastLength: Toast.LENGTH_LONG,
@@ -68,7 +57,6 @@ class Request {
       textColor: MyColor.loginWhite,
       fontSize: 16.0
     );
-    print("<net> errorMsg :" + errorMsg);
   }
 
   static Dio createDio() {

@@ -40,7 +40,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   }
 
   Future<void> _getMyAccount() async {
-    Request.get(url: Api.OwnerAccount, callBack: (data) {
+    Request.get(url: Api.OwnerAccount).then((data) {
       OwnerAccount account = OwnerAccount.fromJson(data);
       MyAccount saveAcc = new MyAccount();
       saveAcc.setAcc(account);

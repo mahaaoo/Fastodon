@@ -26,7 +26,7 @@ class _FollowerListState extends State<FollowerList> with AutomaticKeepAliveClie
   }
 
   Future<void> _startRequest(url) async {
-    Request.get(url: url, callBack: (List data) {
+    Request.get(url: url).then((data) {
       if(this.mounted) {
         setState(() {
           _dataList = data;

@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
     paramsMap['redirect_uris'] = AppConfig.RedirectUris;
     paramsMap['scopes'] = AppConfig.Scopes;
 
-    Request.post(url: '$hostUrl' + Api.Apps, params: paramsMap, callBack: (data) {
+    Request.post(url: '$hostUrl' + Api.Apps, params: paramsMap).then((data) {
       AppCredential model = AppCredential.fromJson(data);
       setState(() {
         _clickButton = false;
@@ -45,19 +45,6 @@ class _LoginState extends State<Login> {
       AppNavigate.push(context, WebLogin(serverItem: model, hostUrl: hostUrl), callBack: (code) {
         _getToken(code, model, hostUrl);
       });
-    }, errorCallBack: (error) {
-      setState(() {
-        _clickButton = false;
-      });
-      Fluttertoast.showToast(
-        msg: "不存在该节点",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIos: 1,
-        backgroundColor: MyColor.error,
-        textColor: MyColor.loginWhite,
-        fontSize: 16.0
-      );
     });
   }
 
@@ -70,7 +57,7 @@ class _LoginState extends State<Login> {
     paramsMap['code'] = code;
     paramsMap['redirect_uri'] = serverItem.redirectUri;
 
-    Request.post(url: '$hostUrl' + Api.Token, params: paramsMap, callBack: (data) {
+    Request.post(url: '$hostUrl' + Api.Token, params: paramsMap).then((data) {
       Token getToken = Token.fromJson(data);      
       String token = '${getToken.tokenType} ${getToken.accessToken}';
       // 这里的存储是异步的，需要将token保存至单例中实时更新页面

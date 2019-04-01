@@ -5,7 +5,10 @@ import 'package:fastodon/pages/setting/model/owner_account.dart';
 import 'follow_cell.dart';
 
 class FollowingList extends StatefulWidget {
-  FollowingList({Key key, this.url}) : super(key: key);
+  FollowingList({
+    Key key, 
+    this.url,
+  }) : super(key: key);
   final String url;
 
   @override
@@ -26,7 +29,7 @@ class _FollowingListState extends State<FollowingList> with AutomaticKeepAliveCl
   }
 
   Future<void> _startRequest(url) async {
-    Request.get(url: url, callBack: (List data) {
+    Request.get(url: url).then((data) {
       if(this.mounted) {
         setState(() {
           _dataList = data;
