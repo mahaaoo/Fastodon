@@ -45,6 +45,10 @@ class _LoginState extends State<Login> {
       AppNavigate.push(context, WebLogin(serverItem: model, hostUrl: hostUrl), callBack: (code) {
         _getToken(code, model, hostUrl);
       });
+    }).catchError(() {
+      setState(() {
+        _clickButton = true;
+      });
     });
   }
 

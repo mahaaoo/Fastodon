@@ -57,6 +57,7 @@ class Request {
       textColor: MyColor.loginWhite,
       fontSize: 16.0
     );
+    throw(errorMsg);
   }
 
   static Dio createDio() {
