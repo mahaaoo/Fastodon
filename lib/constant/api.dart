@@ -28,4 +28,10 @@ class Api {
   } // 取关某人
   static String Relationships = '/api/v1/accounts/relationships'; // 查看与某人的关注或者被关注情况
   static String CustomEmojis = '/api/v1/custom_emojis'; // 该节点的emojis
+  static String FavouritesArticle(arg) {
+    return '/api/v1/statuses/$arg/favourite'; // 收藏某个文章
+  }
+  static String UnFavouritesArticle(arg) {
+    return '/api/v1/statuses/$arg/unfavourite'; // 取消收藏某个文章
+  }
 }

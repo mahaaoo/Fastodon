@@ -81,6 +81,7 @@ class Request {
       },
       onResponse:(Response response) {
         print('收到了json信息');
+        // print(response);
         return response; // continue
       },
       onError: (DioError e) {
