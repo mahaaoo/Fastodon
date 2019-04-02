@@ -18,14 +18,14 @@ flutter run
 ```
 You can successfully run in the simulator/real machine (both Android and iOS).
 
-P.S. You can ask questions in [issuse] (https://github.com/mah93/Fastodon/issuse) if you encounter any problems.
+P.S. You can ask questions in [issuse](https://github.com/mah93/Fastodon/issuse) if you encounter any problems.
 
 ## Mastodon Guide
 
 Mastodon Unlike Twitter, Mastodon is an open source project that allows users to create their own servers, and users between different servers can communicate without any gaps, much like an email system. Users registered on the A server are free to pay attention to another user registered on the B server, send TOOT @ he, and get a reply and notification in time.
 
 ### Choose a server
-Before you want to join Mastodon, you must first select a server to register and log in. You can join different servers according to your preferences (each server evolves into a different community culture according to the builder's wishes). All servers are listed [here] (https://joinmastodon.org/). Of course, you can also build your own server. To build your own server, please refer to [github] (https://github.com/tootsuite/documentation#running-mastodon).
+Before you want to join Mastodon, you must first select a server to register and log in. You can join different servers according to your preferences (each server evolves into a different community culture according to the builder's wishes). All servers are listed [here](https://joinmastodon.org/). Of course, you can also build your own server. To build your own server, please refer to [github](https://github.com/tootsuite/documentation#running-mastodon).
 
 ### Register and Login
 After selecting the server, you will be prompted to jump to the login page. If you don't have an account yet, just log in to complete the registration! (Account information is not shared on different servers, but you can browse to other servers or add friends)
