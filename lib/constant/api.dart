@@ -27,4 +27,5 @@ class Api {
     return '/api/v1/accounts/$arg/unfollow';
   } // 取关某人
   static String Relationships = '/api/v1/accounts/relationships'; // 查看与某人的关注或者被关注情况
+  static String CustomEmojis = '/api/v1/custom_emojis'; // 该节点的emojis
 }

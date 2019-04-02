@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:fastodon/public.dart';
 
 class ExpandStateBean{
   var isOpen;
@@ -74,15 +74,6 @@ class _AboutAppState extends State<AboutApp> {
     });
   }
 
-  _launchURL(String url) async {
-    print(url);
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +122,7 @@ class _AboutAppState extends State<AboutApp> {
                       SizedBox(height: 20),
                       GestureDetector(
                         onTap: () {
-                          _launchURL(pluginLink[index]);
+                          Open.url(pluginLink[index]);
                         },
                         child: Text(
                           pluginLink[index],

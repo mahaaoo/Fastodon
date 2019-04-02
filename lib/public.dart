@@ -8,6 +8,7 @@ export 'package:fastodon/untils/my_color.dart';
 export 'package:fastodon/untils/request.dart';
 export 'package:fastodon/untils/screen.dart';
 export 'package:fastodon/untils/date_until.dart';
+export 'package:fastodon/untils/open_url.dart';
 
 // constant
 export 'package:fastodon/constant/storage_key.dart';

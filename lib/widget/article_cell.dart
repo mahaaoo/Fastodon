@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:fastodon/public.dart';
 
@@ -18,16 +17,6 @@ class ArticleCell extends StatefulWidget {
 }
 
 class _ArticleCellState extends State<ArticleCell> {
-
-  _launchURL(String url) async {
-    print(url);
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   Widget articleContent() {
     if (widget.item.card != null && widget.item.card.image != null) {
       return Padding(
@@ -37,7 +26,7 @@ class _ArticleCellState extends State<ArticleCell> {
             Html(
               data: widget.item.content,
               onLinkTap: (url) {
-                _launchURL(url);
+                Open.url(url);
               },
             ),
             SizedBox(height: 15),

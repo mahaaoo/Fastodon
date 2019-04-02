@@ -5,6 +5,7 @@ import 'package:fastodon/public.dart';
 
 import 'package:fastodon/models/my_account.dart';
 import 'model/owner_account.dart';
+import 'package:fastodon/models/user.dart';
 
 import 'user_message.dart';
 import 'setting_head.dart';
@@ -131,7 +132,11 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
           SettingCell(
             title: '关于本站',
             leftIcon: Icon(Icons.attachment),
-            onPress: () => {},
+            onPress: () {
+              User user = new User();
+              String urlHost = user.getHost();
+              Open.url(urlHost + '/about');
+            },
           ),
           SettingCell(
             title: '关于App',

@@ -35,6 +35,13 @@ class _NewArticleState extends State<NewArticle> {
         _myAcc = accMsg;
       });
     }
+    _getEmojis();
+  }
+
+  Future<void> _getEmojis() async {
+    Request.get(url: Api.CustomEmojis).then((data) {
+      print(data);
+    });
   }
 
   Future<void> _getMyAccount() async {
@@ -53,7 +60,7 @@ class _NewArticleState extends State<NewArticle> {
     paramsMap['in_reply_to_id'] = null;
     paramsMap['media_ids'] = [];
     paramsMap['sensitive'] = false;
-    paramsMap['spoiler_text'] = '';
+    paramsMap['spoiler_text'] = _wornController.text;
     paramsMap['status'] = _controller.text;
     paramsMap['visibility'] = _visibility;
 
