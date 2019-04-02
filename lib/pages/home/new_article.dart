@@ -99,6 +99,69 @@ class _NewArticleState extends State<NewArticle> {
     );
   }
 
+  void showBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context){
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            NewArticleCell(
+              title: '公开',
+              description: '所有人可见，并且会出现在公共时间轴上',
+              leftIcon: Icon(Icons.public, size: 30),
+              onSelect: (Icon icons) {
+                setState(() {
+                  _articleRange = icons;
+                  _visibility = 'public';
+                });
+              },
+              currentIcon: _articleRange,
+            ),
+            NewArticleCell(
+              title: '不公开',
+              description: '所有人可见，但不会出现在公共时间轴上',
+              leftIcon: Icon(Icons.vpn_lock, size: 30),
+              onSelect: (Icon icons) {
+                setState(() {
+                  _articleRange = icons;
+                  _visibility = 'unlisted';
+                });
+              },
+              currentIcon: _articleRange,
+            ),
+            NewArticleCell(
+              title: '仅关注者',
+              description: '只有关注你的用户可以看到',
+              leftIcon: Icon(Icons.lock, size: 30),
+              onSelect: (Icon icons) {
+                setState(() {
+                  _articleRange = icons;
+                  _visibility = 'private';
+                });
+              },
+              currentIcon: _articleRange,
+            ),
+            NewArticleCell(
+              title: '私信',
+              description: '只有被提及的用户可以看到',
+              leftIcon: Icon(Icons.sms, size: 30),
+              onSelect: (Icon icons) {
+                setState(() {
+                  _articleRange = icons;
+                });
+                _visibility = 'direct';
+              },
+              currentIcon: _articleRange,
+            ),
+            SizedBox(height: Screen.bottomSafeHeight(context))
+          ]
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String displayName = '';
@@ -109,171 +172,119 @@ class _NewArticleState extends State<NewArticle> {
     }
 
     return Scaffold(
-      body: Container(
-        color: MyColor.widgetDefaultColor,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      ClipRRect(
-                        child: CachedNetworkImage(
-                            imageUrl: _myAcc.avatarStatic,
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
+      resizeToAvoidBottomPadding: false,
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
+          color: MyColor.widgetDefaultColor,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        ClipRRect(
+                          child: CachedNetworkImage(
+                              imageUrl: _myAcc.avatarStatic,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(5.0),
                         ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(displayName, style: TextStyle(fontSize: 16)),
-                          Text('@' + _myAcc.acct, style: TextStyle(fontSize: 13, color: MyColor.greyText))
-                        ],
-                      ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      eventBus.emit(EventBusKey.HidePresentWidegt);
-                    },
-                    child: Icon(Icons.close),
-                  ),
-                ],
-              ),
-            ),
-            worningWidge(),
-            Container(
-              color: MyColor.newArticalTextFieldColor,
-              height: 250,
-              width: Screen.width(context) - 60,
-              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: TextField(
-                controller: _controller,
-                maxLength: 500,
-                maxLines: 10,
-                decoration: InputDecoration(
-                  hintText: '有什么新鲜事',
-                  disabledBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  labelStyle: TextStyle(fontSize: 16)
+                        SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(displayName, style: TextStyle(fontSize: 16)),
+                            Text('@' + _myAcc.acct, style: TextStyle(fontSize: 13, color: MyColor.greyText))
+                          ],
+                        ),
+                      ],
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        eventBus.emit(EventBusKey.HidePresentWidegt);
+                      },
+                      child: Icon(Icons.close),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Icon(Icons.photo, size: 30),
-                      SizedBox(width: 10,),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context){
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  NewArticleCell(
-                                    title: '公开',
-                                    description: '所有人可见，并且会出现在公共时间轴上',
-                                    leftIcon: Icon(Icons.public, size: 30),
-                                    onSelect: (Icon icons) {
-                                      setState(() {
-                                        _articleRange = icons;
-                                        _visibility = 'public';
-                                      });
-                                    },
-                                    currentIcon: _articleRange,
-                                  ),
-                                  NewArticleCell(
-                                    title: '不公开',
-                                    description: '所有人可见，但不会出现在公共时间轴上',
-                                    leftIcon: Icon(Icons.vpn_lock, size: 30),
-                                    onSelect: (Icon icons) {
-                                      setState(() {
-                                        _articleRange = icons;
-                                        _visibility = 'unlisted';
-                                      });
-                                    },
-                                    currentIcon: _articleRange,
-                                  ),
-                                  NewArticleCell(
-                                    title: '仅关注者',
-                                    description: '只有关注你的用户可以看到',
-                                    leftIcon: Icon(Icons.lock, size: 30),
-                                    onSelect: (Icon icons) {
-                                      setState(() {
-                                        _articleRange = icons;
-                                        _visibility = 'private';
-                                      });
-                                    },
-                                    currentIcon: _articleRange,
-                                  ),
-                                  NewArticleCell(
-                                    title: '私信',
-                                    description: '只有被提及的用户可以看到',
-                                    leftIcon: Icon(Icons.sms, size: 30),
-                                    onSelect: (Icon icons) {
-                                      setState(() {
-                                        _articleRange = icons;
-                                      });
-                                      _visibility = 'direct';
-                                    },
-                                    currentIcon: _articleRange,
-                                  ),
-                                  SizedBox(height: Screen.bottomSafeHeight(context))
-                                ]
-                              );
-                            }
-                          );
-                        },
-                        child: _articleRange,
-                      ),
-                      SizedBox(width: 10,),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _worningWords = !_worningWords;
-                          });
-                        },
-                        child: Text('cw', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                      )
-                    ],
+              worningWidge(),
+              Container(
+                color: MyColor.newArticalTextFieldColor,
+                height: 250,
+                width: Screen.width(context) - 60,
+                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                child: TextField(
+                  controller: _controller,
+                  maxLength: 500,
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                    hintText: '有什么新鲜事',
+                    disabledBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    labelStyle: TextStyle(fontSize: 16)
                   ),
-                  RaisedButton(
-                    onPressed: () {
-                      if (_controller.text.length == 0) {
-                        Fluttertoast.showToast(
-                          msg: "说点什么吧",
-                          toastLength: Toast.LENGTH_LONG,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIos: 1,
-                          backgroundColor: MyColor.error,
-                          textColor: MyColor.loginWhite,
-                          fontSize: 16.0
-                        );
-                      } else {
-                        _pushNewToot();
-                      }
-                    },
-                    child: Text('TooT!'),
-                  )
-                ],
+                ),
+              ),            
+              Padding(
+                padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Icon(Icons.photo, size: 30),
+                        SizedBox(width: 10,),
+                        GestureDetector(
+                          onTap: () {
+                            showBottomSheet();
+                          },
+                          child: _articleRange,
+                        ),
+                        SizedBox(width: 10,),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _worningWords = !_worningWords;
+                            });
+                          },
+                          child: Text('cw', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                        )
+                      ],
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        if (_controller.text.length == 0) {
+                          Fluttertoast.showToast(
+                            msg: "说点什么吧",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIos: 1,
+                            backgroundColor: MyColor.error,
+                            textColor: MyColor.loginWhite,
+                            fontSize: 16.0
+                          );
+                        } else {
+                          _pushNewToot();
+                        }
+                      },
+                      child: Text('TooT!'),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
