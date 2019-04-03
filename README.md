@@ -48,7 +48,6 @@ OK！just fine～
 
 ## Open source components used
  
-
 | components  | version         | description     |
 | -------- | ------------------------- | -------- |
 | dio     | ^2.0.2     | Network request framework   |
@@ -60,3 +59,6 @@ OK！just fine～
 | flutter_webview_plugin    | ^0.3.0+2    | WebView     |
 | flutter_html   | ^0.9.4   | Html analysis    |
 | url_launcher   | ^5.0.2   | Open browser     |
+
+## License
+[MIT](./LICENSE)

@@ -60,3 +60,7 @@ OK！just fine～
 | flutter_webview_plugin    | ^0.3.0+2    | 提供WebView     |
 | flutter_html   | ^0.9.4   | 解析html     |
 | url_launcher   | ^5.0.2   | 打开浏览器     |
+
+## 开源协议
+
+[MIT](./LICENSE)
