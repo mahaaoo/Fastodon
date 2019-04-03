@@ -7,6 +7,7 @@ import 'package:fastodon/public.dart';
 import 'package:fastodon/pages/setting/user_message.dart';
 import 'package:fastodon/models/article_item.dart';
 import 'avatar.dart';
+import 'article_cell_toolbar.dart';
 
 class ArticleCell extends StatefulWidget {
   ArticleCell({Key key, this.item}) : super(key: key);
@@ -17,32 +18,6 @@ class ArticleCell extends StatefulWidget {
 }
 
 class _ArticleCellState extends State<ArticleCell> {
-  bool _favourite = false;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _favourite = widget.item.favourited;
-    });
-  }
-
-  Future<void> _onPressFavoutite(String url) async {
-    setState(() {
-      _favourite = !_favourite;
-    });
-    Request.post(url: url).then((data) {
-      ArticleItem newItem = ArticleItem.fromJson(data);
-      setState(() {
-        _favourite = newItem.favourited;
-      });
-    }).catchError((onError) {
-      setState(() {
-        _favourite = !_favourite;
-      });
-    });
-  }
-
   Widget articleContent() {
     if (widget.item.card != null && widget.item.card.image != null) {
       return Padding(
@@ -99,14 +74,6 @@ class _ArticleCellState extends State<ArticleCell> {
           },
         ),
       );
-    }
-  }
-
-  Widget favouritedAtion() {
-    if(_favourite == true){
-      return Icon(Icons.favorite, color: Colors.red);
-    } else {
-      return Icon(Icons.favorite_border, color: MyColor.timelineUnIconColor);
     }
   }
 
@@ -173,32 +140,8 @@ class _ArticleCellState extends State<ArticleCell> {
               ],
             ),
             articleContent(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-
-                  },
-                  child: Icon(Icons.reply, color: MyColor.timelineUnIconColor),
-                ),
-                GestureDetector(
-                  onTap: () {
-
-                  },
-                  child: Icon(Icons.repeat, color: MyColor.timelineUnIconColor),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    if (_favourite == false) {
-                      _onPressFavoutite(Api.FavouritesArticle(widget.item.id));
-                    } else {
-                      _onPressFavoutite(Api.UnFavouritesArticle(widget.item.id));
-                    }
-                  },
-                  child: favouritedAtion(),
-                ),
-              ],
+            ArticleCellToolbar(
+              item: widget.item,
             ),
             SizedBox(height: 10)
           ],
