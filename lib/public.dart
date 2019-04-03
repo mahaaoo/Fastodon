@@ -9,6 +9,7 @@ export 'package:fastodon/untils/request.dart';
 export 'package:fastodon/untils/screen.dart';
 export 'package:fastodon/untils/date_until.dart';
 export 'package:fastodon/untils/open_url.dart';
+export 'package:fastodon/untils/string_until.dart';
 
 // constant
 export 'package:fastodon/constant/storage_key.dart';

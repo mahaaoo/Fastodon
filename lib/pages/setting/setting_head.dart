@@ -36,7 +36,7 @@ class SettingHead extends StatelessWidget {
     return Positioned(
       top: 130,
       left: 100,
-      child: Text(account.displayName, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+      child: Text(StringUntil.displayName(account), style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
     );
   }
 

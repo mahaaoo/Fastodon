@@ -11,13 +11,6 @@ class FollowCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String displayName = '';
-    if (item.account.displayName == '' || item.account.displayName.length == 0) {
-      displayName = item.account.acct;
-    } else {
-      displayName = item.account.displayName;
-    }
-
     return Container(
       color: MyColor.widgetDefaultColor,
       child: Column(
@@ -34,7 +27,7 @@ class FollowCell extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Text(item.account.displayName + '开始关注你了', style: TextStyle(fontSize: 14),),
+                child: Text(StringUntil.displayName(item.account) + '开始关注你了', style: TextStyle(fontSize: 14),),
               ),
             ],
           ),
@@ -50,7 +43,7 @@ class FollowCell extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(displayName, style: TextStyle(fontSize: 16)),
+                      Text(StringUntil.displayName(item.account), style: TextStyle(fontSize: 16)),
                       Text('@' + item.account.username,  style: TextStyle(fontSize: 13, color: MyColor.greyText)),
                     ],
                   )

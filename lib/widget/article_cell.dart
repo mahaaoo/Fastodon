@@ -6,6 +6,7 @@ import 'package:fastodon/public.dart';
 
 import 'package:fastodon/pages/setting/user_message.dart';
 import 'package:fastodon/models/article_item.dart';
+import 'package:fastodon/pages/home/article_detail.dart';
 import 'avatar.dart';
 import 'article_cell_toolbar.dart';
 
@@ -79,15 +80,9 @@ class _ArticleCellState extends State<ArticleCell> {
 
   @override
   Widget build(BuildContext context) {
-    String displayName = '';
-    if (widget.item.account.displayName == '' || widget.item.account.displayName.length == 0) {
-      displayName = widget.item.account.acct;
-    } else {
-      displayName = widget.item.account.displayName;
-    }
     return GestureDetector(
       onTap: () {
-        print('跳转到详情页');
+        AppNavigate.push(context, ArticleDetail(item: widget.item));
       },
       child: Container(
         color: MyColor.widgetDefaultColor,
@@ -107,16 +102,16 @@ class _ArticleCellState extends State<ArticleCell> {
                 ),
                 Expanded(
                   child: Container(
-                  height: 50,
-                  margin: EdgeInsets.only(top: 15),
-                  child: Column(
+                    height: 50,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(displayName, style: TextStyle(fontSize: 16)),
+                            Text(StringUntil.displayName(widget.item.account), style: TextStyle(fontSize: 16)),
                             Padding(
                               padding: EdgeInsets.only(right: 15),
                               child: Icon(Icons.keyboard_arrow_down , color: MyColor.timelineUnIconColor),
@@ -135,7 +130,7 @@ class _ArticleCellState extends State<ArticleCell> {
                         )
                       ],
                     ),
-                ),
+                  ),
                 )
               ],
             ),

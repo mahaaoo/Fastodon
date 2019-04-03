@@ -198,7 +198,7 @@ class _UserMessageState extends State<UserMessage> {
                   Avatar(url: widget.account.avatar),
                   SizedBox(height: 5),
                   Text(
-                    widget.account.displayName, 
+                    StringUntil.displayName(widget.account),
                     style: TextStyle(color: MyColor.widgetDefaultColor, fontSize: 15),
                   ),
                   Container(
@@ -296,7 +296,7 @@ class _UserMessageState extends State<UserMessage> {
           ),
           Expanded(
             child: contentView(_currentWidget),
-          )
+          ),
         ],
       ),
     );

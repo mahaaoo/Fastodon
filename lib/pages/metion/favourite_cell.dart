@@ -12,13 +12,6 @@ class FavouriteCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String displayName = '';
-    if (item.status.account.displayName == '' || item.status.account.displayName.length == 0) {
-      displayName = item.status.account.acct;
-    } else {
-      displayName = item.status.account.displayName;
-    }
-
     return Container(
       color: MyColor.widgetDefaultColor,
       child: Column(
@@ -35,7 +28,7 @@ class FavouriteCell extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Text(item.account.displayName + '收藏了你的嘟文', style: TextStyle(fontSize: 14),),
+                child: Text(StringUntil.displayName(item.status.account) + '收藏了你的嘟文', style: TextStyle(fontSize: 14),),
               ),
             ],
           ),
@@ -63,7 +56,7 @@ class FavouriteCell extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(displayName, style: TextStyle(fontSize: 16)),
+                    Text(StringUntil.displayName(item.status.account), style: TextStyle(fontSize: 16)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

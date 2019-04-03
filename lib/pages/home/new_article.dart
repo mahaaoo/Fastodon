@@ -164,13 +164,6 @@ class _NewArticleState extends State<NewArticle> {
 
   @override
   Widget build(BuildContext context) {
-    String displayName = '';
-    if (_myAcc.displayName == '' || _myAcc.displayName.length == 0) {
-      displayName = _myAcc.acct;
-    } else {
-      displayName = _myAcc.displayName;
-    }
-
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: GestureDetector(
@@ -202,7 +195,7 @@ class _NewArticleState extends State<NewArticle> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(displayName, style: TextStyle(fontSize: 16)),
+                            Text(StringUntil.displayName(_myAcc), style: TextStyle(fontSize: 16)),
                             Text('@' + _myAcc.acct, style: TextStyle(fontSize: 13, color: MyColor.greyText))
                           ],
                         ),
