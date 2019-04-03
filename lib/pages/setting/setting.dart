@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fastodon/public.dart';
 
 import 'package:fastodon/models/my_account.dart';
-import 'model/owner_account.dart';
+import 'package:fastodon/models/owner_account.dart';
 import 'package:fastodon/models/user.dart';
 
 import 'user_message.dart';

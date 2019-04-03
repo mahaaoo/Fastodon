@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import 'package:fastodon/public.dart';
-import 'model/owner_account.dart';
+import 'package:fastodon/models/owner_account.dart';
 
 import 'package:fastodon/widget/refresh_load_listview.dart';
 import 'package:fastodon/widget/article_cell.dart';

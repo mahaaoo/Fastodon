@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fastodon/public.dart';
 
 import 'package:fastodon/models/my_account.dart';
-import 'package:fastodon/pages/setting/model/owner_account.dart';
+import 'package:fastodon/models/owner_account.dart';
 import 'package:fastodon/models/article_item.dart';
 import 'new_article_cell.dart';
 

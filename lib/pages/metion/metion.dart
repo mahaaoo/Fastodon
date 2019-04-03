@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fastodon/public.dart';
 import 'package:fastodon/widget/refresh_load_listview.dart';
 import 'model/notificate_item.dart';
+
+import 'package:fastodon/widget/article_cell.dart';
 import 'follow_cell.dart';
 import 'favourite_cell.dart';
 
@@ -41,7 +43,11 @@ class _MetionState extends State<Metion> with AutomaticKeepAliveClientMixin {
       return FavouriteCell(
         item: item,
       );
-    } else {
+    } else if (item.type == 'mention') {
+      return ArticleCell(
+        item: item.status,
+      );
+    }else {
       return Container();
     }
   }

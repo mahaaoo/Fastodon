@@ -1,4 +1,5 @@
-import 'package:fastodon/pages/setting/model/owner_account.dart';
+import 'package:fastodon/models/owner_account.dart';
+
 class MyAccount {
   OwnerAccount account;
   // 工厂模式
