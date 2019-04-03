@@ -14,14 +14,12 @@ class ArticleCellToolbar extends StatefulWidget {
 }
 
 class _ArticleCellToolbarState extends State<ArticleCellToolbar> {
-  bool _favourite = false;
+  bool _favourite;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _favourite = widget.item.favourited;
-    });
+    _favourite = widget.item.favourited;
   }
 
   Future<void> _onPressFavoutite(String url) async {
