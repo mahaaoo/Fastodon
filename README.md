@@ -48,17 +48,19 @@ OK！just fine～
 
 ## Open source components used
  
+
 | components  | version         | description     |
 | -------- | ------------------------- | -------- |
-| dio     | ^2.0.2     | Network request framework   |
+| dio     | ^2.0.2     | Network request framework     |
 | json_serializable      | ^2.0.0      | Json analysis  |
 | cached_network_image    | ^0.6.0    | Network image cache     |
 | shared_preferences   | ^0.5.1+1   | LocalStorage     |
 | flutter_spinkit  | ^3.1.0  | Loading     |
 | fluttertoast | ^3.0.1 | Totast     |
 | flutter_webview_plugin    | ^0.3.0+2    | WebView     |
-| flutter_html   | ^0.9.4   | Html analysis    |
-| url_launcher   | ^5.0.2   | Open browser     |
+| flutter_html   | ^0.9.4   | Html analysis     |
+| url_launcher   | ^5.0.2   | Open browser    |
+
 
 ## License
 [MIT](./LICENSE)
