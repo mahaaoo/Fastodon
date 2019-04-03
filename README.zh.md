@@ -64,5 +64,3 @@ OK！just fine～
 ## 开源协议
 
 [MIT](./LICENSE)
-
-|-|-|-|
