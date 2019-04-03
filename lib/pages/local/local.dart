@@ -10,8 +10,9 @@ class Local extends StatefulWidget {
 }
 
 class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
+  bool _local = true;
   bool _showTab = false;
-  
+
   @override
   void initState() {
     super.initState();
@@ -33,43 +34,28 @@ class _LocalState extends State<Local> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: MyColor.mainColor,
-          title: Text('热门'),
-          centerTitle: true,
-          bottom: PreferredSize(
-            preferredSize: Size(0, Screen.statusBarHeight(context)),
-            child: Container(
-              color: Colors.white,
-              height: 35,
-              child: TabBar(
-                labelColor: MyColor.mainColor,
-                labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                unselectedLabelColor: MyColor.greyText,
-                indicatorColor: MyColor.tabIndicatorColor,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorWeight: 3,
-                tabs: [
-                  Tab(text: '本地'),
-                  Tab(text: '跨站'),
-                ],
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: MyColor.mainColor,
+        title: _local == true ? Text('本地') : Text('跨站'),
+        centerTitle: true,
+        actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _local = !_local;
+              });
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: _local == true ? Icon(Icons.public, size: 30) : Icon(Icons.people, size: 30)
             ),
-          ),
-          elevation: 0,
-        ),
-        body: TabBarView(
-          children: _showTab == false ? [
-            Container(),
-            Container(),
-          ] : [
-            LocalTimeline(),
-            PublicTimeline(),
-          ]
-        ),
+          )
+        ],
+      ),
+      body: LoadingWidget(
+        childWidget: _local == true ? LocalTimeline() : PublicTimeline(),
+        endLoading: _showTab
       ),
     );
   }
