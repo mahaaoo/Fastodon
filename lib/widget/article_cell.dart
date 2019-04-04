@@ -9,6 +9,7 @@ import 'package:fastodon/models/article_item.dart';
 import 'package:fastodon/pages/home/article_detail.dart';
 import 'avatar.dart';
 import 'article_cell_toolbar.dart';
+import 'article_media.dart';
 
 class ArticleCell extends StatefulWidget {
   ArticleCell({Key key, this.item}) : super(key: key);
@@ -19,62 +20,45 @@ class ArticleCell extends StatefulWidget {
 }
 
 class _ArticleCellState extends State<ArticleCell> {
-  Widget articleContent() {
+  Widget articleMedia() {
     if (widget.item.card != null && widget.item.card.image != null) {
-      return Padding(
+      return Container(
         padding: EdgeInsets.all(15),
-        child: Column(
+        color: Colors.grey[50],
+        child: Row(
           children: <Widget>[
-            Html(
-              data: widget.item.content,
-              onLinkTap: (url) {
-                Open.url(url);
-              },
+            CachedNetworkImage(
+              imageUrl: widget.item.card.image,
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
             ),
-            Container(
-              color: Colors.grey[50],
-              margin: EdgeInsets.fromLTRB(0, 15, 0, 15),
-              child: Row(
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CachedNetworkImage(
-                    imageUrl: widget.item.card.image,
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
+                  Text(
+                    widget.item.card.title, 
+                    style: TextStyle(fontSize: 15),
+                    softWrap: false,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          widget.item.card.title, 
-                          style: TextStyle(fontSize: 15),
-                          softWrap: false,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: 5),
-                        Text(widget.item.card.providerName, style: TextStyle(fontSize: 13, color: MyColor.greyText))
-                      ],
-                    ),
-                  ),
+                  SizedBox(height: 5),
+                  Text(widget.item.card.providerName, style: TextStyle(fontSize: 13, color: MyColor.greyText))
                 ],
               ),
-            )
+            ),
           ],
-        )
-      );
-    } else {
-      return Padding(
-        padding: EdgeInsets.all(15),
-        child: Html(
-          data: widget.item.content,
-          onLinkTap: (url) {
-            print('点击到的链接：' + url);
-          },
         ),
       );
+    } else if(widget.item.mediaAttachments != null && widget.item.mediaAttachments.length != 0) {
+      return ArticleMedia(
+        itemList: widget.item.mediaAttachments,
+      );
+    } else {
+      return Container();
     }
   }
 
@@ -134,7 +118,16 @@ class _ArticleCellState extends State<ArticleCell> {
                 )
               ],
             ),
-            articleContent(),
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Html(
+                data: widget.item.content,
+                onLinkTap: (url) {
+                  print('点击到的链接：' + url);
+                },
+              ),
+            ),
+            articleMedia(),
             ArticleCellToolbar(
               item: widget.item,
             ),
