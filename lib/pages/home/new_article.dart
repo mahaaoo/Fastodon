@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:fastodon/public.dart';
 
@@ -70,6 +71,11 @@ class _NewArticleState extends State<NewArticle> {
         eventBus.emit(EventBusKey.HidePresentWidegt, true);
       }
     });
+  }
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    print(image);
   }
 
   Widget worningWidge() {
@@ -236,7 +242,12 @@ class _NewArticleState extends State<NewArticle> {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Icon(Icons.photo, size: 30),
+                        GestureDetector(
+                          onTap: () {
+                            getImage();
+                          },
+                          child: Icon(Icons.photo, size: 30),
+                        ),
                         SizedBox(width: 10,),
                         GestureDetector(
                           onTap: () {
