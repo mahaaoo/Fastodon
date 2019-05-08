@@ -34,6 +34,10 @@ class _RootPageState extends State<RootPage> {
     super.initState();
     widget.showLogin();
     // 隐藏登录弹出页
+    eventBus.on(EventBusKey.ShowLoginWidget, (arg) {
+      widget.showLogin();
+    });
+
     eventBus.on(EventBusKey.HidePresentWidegt, (arg) {
       widget.hideWidget();
     });
@@ -45,6 +49,7 @@ class _RootPageState extends State<RootPage> {
 
   @override
   void dispose() {
+    eventBus.off(EventBusKey.ShowLoginWidget);
     eventBus.off(EventBusKey.HidePresentWidegt);
     eventBus.off(EventBusKey.ShowNewArticalWidget);
     super.dispose();

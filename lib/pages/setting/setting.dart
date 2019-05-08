@@ -71,9 +71,16 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
               isDefaultAction: true,
               child: Text("确定"),
               onPressed: () {
+                // 清除单例保存的内容
+                MyAccount saveAcc = new MyAccount();
+                saveAcc.removeAcc();
+                // 清除本地存储的内容
                 Storage.removeString(StorageKey.HostUrl);
                 Storage.removeString(StorageKey.Token);
+
                 Navigator.pop(context, 'Cancel');
+                // 弹出登录页面
+                eventBus.emit(EventBusKey.ShowLoginWidget);
               }
             )
           ],

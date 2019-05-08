@@ -20,6 +20,10 @@ class MyAccount {
     this.account = account;
   }
 
+  removeAcc() {
+    this.account = null;
+  }
+
   OwnerAccount getAcc() {
     return this.account;
   }
