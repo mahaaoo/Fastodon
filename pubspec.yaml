@@ -21,7 +21,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   dio: ^2.0.2
   json_serializable: ^2.0.0
-  cached_network_image: ^0.6.0
+  cached_network_image: ^2.0.0-rc
   shared_preferences: ^0.5.1+1
   flutter_spinkit: ^3.1.0
   fluttertoast: ^3.0.1
@@ -47,7 +47,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  
+
   assets:
    - image/
 
