@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fastodon/utils/request.dart';
 
 class ShareDataWidget extends InheritedWidget {
   ShareDataWidget({
@@ -40,22 +39,20 @@ class __TestWidgetState extends State<_TestWidget> {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    // setState(() {
-    //   _counter++;
-    // });
-
-    Request.post(url: '', params: {});
+    setState(() {
+      _counter++;
+    });
   }
 
   @override
