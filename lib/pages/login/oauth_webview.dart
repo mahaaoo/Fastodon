@@ -4,6 +4,10 @@ import 'dart:io';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OauthWebView extends StatefulWidget {
+  OauthWebView({Key key, this.hostUrl}) : super(key: key);
+
+  final String hostUrl;
+
   @override
   OauthWebViewState createState() => OauthWebViewState();
 }
