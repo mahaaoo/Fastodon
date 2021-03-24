@@ -1,43 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ShareDataWidget extends InheritedWidget {
-  ShareDataWidget({
-    @required this.data,
-    Widget child
-  }) : super(child: child);
-
-  final int data;
-
-  static ShareDataWidget of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ShareDataWidget>();
-  }
-
-  @override
-  bool updateShouldNotify(ShareDataWidget old) {
-    return old.data != data;
-  }
-}
-
-class _TestWidget extends StatefulWidget {
-  @override
-  __TestWidgetState createState() => new __TestWidgetState();
-}
-
-class __TestWidgetState extends State<_TestWidget> {
-  @override
-  Widget build(BuildContext context) {
-    //使用InheritedWidget中的共享数据
-    return Text('text');
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    //父或祖先widget中的InheritedWidget改变(updateShouldNotify返回true)时会被调用。
-    //如果build中没有依赖InheritedWidget，则此回调不会被调用。
-    print("Dependencies change");
-  }
-}
+import 'package:fastodon/pages/login/guide.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -53,32 +16,37 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _counter++;
     });
+
+    Navigator.push(context,
+      MaterialPageRoute(
+        builder: (context) {
+          return GuidePage();
+        },
+        fullscreenDialog: true,
+      )
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter'),
+        title: Text('首页'),
       ),
-      body: ShareDataWidget(
-        data: _counter,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _TestWidget(),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              TextButton(
-                onPressed: () {
-                },
-                child: Text('修改')
-              )
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            TextButton(
+              onPressed: () {
+              },
+              child: Text('修改')
+            )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

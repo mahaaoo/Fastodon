@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fastodon/pages/login/login.dart';
+import 'package:fastodon/pages/login/oauth_webview.dart';
+
 class NavigatorManager extends NavigatorObserver {
     /* 单例给出NavigatorManager */
   static NavigatorManager navigatorManager;
@@ -16,6 +19,8 @@ class NavigatorManager extends NavigatorObserver {
 
   /* 配置routes */
   static Map<String, WidgetBuilder> configRoutes = {
+    'LoginPage': (_) =>  LoginPage(),
+    'OauthWebView': (_) =>  OauthWebView(),
   };
 
   // 当前路由栈
