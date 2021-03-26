@@ -2,11 +2,7 @@ import 'package:dio/dio.dart';
 import 'request.dart';
 
 class RequestUtils {
-  static void init(
-      {String baseUrl,
-      int connectTimeout,
-      int receiveTimeout,
-      List<Interceptor> interceptors}) {
+  static void init({String baseUrl, int connectTimeout, int receiveTimeout, List<Interceptor> interceptors}) {
     Request().init(
         baseUrl: baseUrl,
         connectTimeout: connectTimeout,

@@ -1,6 +1,8 @@
 import 'package:fastodon/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
 
+import 'login_mobx.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
@@ -10,6 +12,15 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controller = new TextEditingController();
+  final LoginMobx store = new LoginMobx();
+
+  void _checkInputText() {
+    if(_controller.text == null || _controller.text.length == 0) {
+      return;
+    }
+    String hostUrl = 'https://${_controller.text}';
+    store.postApps(hostUrl);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +42,8 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               child: Text('登录'),
               onPressed: () {
-                NavigatorUtil.pushNamed('OauthWebView');
+                // NavigatorUtil.pushNamed('OauthWebView');
+                _checkInputText();
               }
             )
           ],

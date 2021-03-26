@@ -21,8 +21,10 @@ class OauthWebViewState extends State<OauthWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: 'https://flutter.dev',
+    return Container(
+      child: WebView(
+        initialUrl: 'https://flutter.dev',
+      ),
     );
   }
 }
