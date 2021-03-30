@@ -13,6 +13,7 @@ class OauthWebView extends StatefulWidget {
 }
 
 class OauthWebViewState extends State<OauthWebView> {
+
   @override
   void initState() {
     super.initState();
@@ -21,10 +22,15 @@ class OauthWebViewState extends State<OauthWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: WebView(
-        initialUrl: 'https://flutter.dev',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter'),
       ),
+      body: Container(
+        child: WebView(
+          initialUrl: widget.hostUrl,
+        ),
+      )
     );
   }
 }
