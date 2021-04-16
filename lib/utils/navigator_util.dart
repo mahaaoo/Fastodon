@@ -6,12 +6,12 @@ class NavigatorUtil {
     NavigatorManager.getInstance().pushReplacementNamed(routeName, builder);
   }
   
-  static pushNamed(String routeName, [WidgetBuilder builder]) {
-    NavigatorManager.getInstance().pushNamed(routeName, builder);
+  static pushNamed(String routeName, { WidgetBuilder builder, Function callBack }) {
+    NavigatorManager.getInstance().pushNamed(routeName, builder: builder, callBack: callBack );
   }
   
   static pop<T extends Object>([T result]) {
-    NavigatorManager.getInstance().pop();
+    NavigatorManager.getInstance().pop(result);
   }
   
   static pushNamedAndRemoveUntil(String newRouteName) {

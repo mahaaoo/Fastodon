@@ -1,3 +1,5 @@
+import 'package:fastodon/config/oauth.dart';
+import 'package:fastodon/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -24,11 +26,21 @@ class OauthWebViewState extends State<OauthWebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter'),
+        title: Text('登录'),
       ),
       body: Container(
         child: WebView(
           initialUrl: widget.hostUrl,
+          javascriptMode: JavascriptMode.unrestricted,
+          navigationDelegate: (NavigationRequest request) {
+            List<String> urlList = request.url.split("?");
+            if (urlList[0].contains(Oauth.RedirectUris) && urlList[1].length != 0) {
+              List<String> codeList = urlList[1].split("=");
+              NavigatorUtil.pop(codeList[1]);
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
         ),
       )
     );

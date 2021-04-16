@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fastodon/pages/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class NavigatorManager extends NavigatorObserver {
 
   /* 配置routes */
   static Map<String, WidgetBuilder> configRoutes = {
+    'RootPage': (_) =>  RootPage(),
     'LoginPage': (_) =>  LoginPage(),
     'OauthWebView': (_) =>  OauthWebView(),
   };
@@ -45,13 +47,15 @@ class NavigatorManager extends NavigatorObserver {
   }
   
   // push 页面
-  pushNamed(String routeName, [WidgetBuilder builder]) {
+  pushNamed(String routeName, { WidgetBuilder builder, Function callBack }) {
     return navigatorUtil.push(
       CupertinoPageRoute(
         builder: builder ?? configRoutes[routeName],
         settings: RouteSettings(name: routeName),
       ),
-    );
+    ).then((data) {
+      callBack(data);
+    });
   }
   
   // pop 页面

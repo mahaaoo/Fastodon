@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _controller,
               decoration: new InputDecoration(
-                hintText: '例如：cmx.im',
+                hintText: '例如：acg.mn',
                 disabledBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               child: Text('登录'),
               onPressed: () {
-                // NavigatorUtil.pushNamed('OauthWebView');
                 _checkInputText();
               }
             )

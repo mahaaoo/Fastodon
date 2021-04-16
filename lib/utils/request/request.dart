@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fastodon/stores/user.dart';
 import 'interceptor.dart';
 
 class Request {
@@ -64,7 +65,9 @@ class Request {
 
   Map<String, dynamic> getAuthorizationHeader() {
     var headers;
-    String accessToken = ''; //配置token
+    User user = new User();
+
+    String accessToken = user.getToken(); //配置token
     if (accessToken != null) {
       headers = {
         'Authorization': 'Bearer $accessToken',
@@ -110,7 +113,10 @@ class Request {
     if (_authorization != null) {
       requestOptions = requestOptions.merge(headers: _authorization);
     }
-    var response = await dio.post(path,
+    User user = new User();
+    var totalPath = user.getHost() + path;
+
+    var response = await dio.post(totalPath,
         data: data,
         queryParameters: params,
         options: requestOptions,
@@ -134,7 +140,10 @@ class Request {
     if (_authorization != null) {
       requestOptions = requestOptions.merge(headers: _authorization);
     }
-    var response = await dio.put(path,
+    User user = new User();
+    var totalPath = user.getHost() + path;
+
+    var response = await dio.put(totalPath,
         data: data,
         queryParameters: params,
         options: requestOptions,
@@ -157,7 +166,10 @@ class Request {
     if (_authorization != null) {
       requestOptions = requestOptions.merge(headers: _authorization);
     }
-    var response = await dio.patch(path,
+    User user = new User();
+    var totalPath = user.getHost() + path;
+
+    var response = await dio.patch(totalPath,
         data: data,
         queryParameters: params,
         options: requestOptions,
@@ -181,7 +193,10 @@ class Request {
     if (_authorization != null) {
       requestOptions = requestOptions.merge(headers: _authorization);
     }
-    var response = await dio.delete(path,
+    User user = new User();
+    var totalPath = user.getHost() + path;
+
+    var response = await dio.delete(totalPath,
         data: data,
         queryParameters: params,
         options: requestOptions,
