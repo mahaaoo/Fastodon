@@ -91,7 +91,10 @@ class Request {
       requestOptions = requestOptions.merge(headers: _authorization);
     }
     Response response;
-    response = await dio.get(path,
+    User user = new User();
+    var totalPath = user.getHost() + path;
+
+    response = await dio.get(totalPath,
         queryParameters: params,
         options: requestOptions,
         cancelToken: cancelToken ?? _cancelToken);

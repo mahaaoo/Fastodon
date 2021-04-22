@@ -35,5 +35,4 @@ class AppServer {
       return ApiResponse.error(e.error);
     }
   }
-
-} 
+}

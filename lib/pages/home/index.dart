@@ -4,6 +4,7 @@ import 'package:fastodon/utils/index.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fastodon/pages/login/guide.dart';
+import 'home_mobx.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final HomeMobx store = new HomeMobx();
 
   @override
   void initState() {
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
           )
         );
       } else {
-        
+        store.getHomeLine();
       }
     });
   }
