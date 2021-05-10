@@ -1,9 +1,12 @@
 import 'package:fastodon/config/storage_key.dart';
+import 'package:fastodon/model/time_line_item.dart';
 import 'package:fastodon/stores/user.dart';
 import 'package:fastodon/utils/index.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fastodon/pages/login/guide.dart';
+import 'package:fastodon/components/refresh_listview.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'home_mobx.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,9 +34,6 @@ class _HomePageState extends State<HomePage> {
       user.setHost(host);
       user.setToken(token);
 
-      print(host);
-      print(token);
-
       if (host == '' || host == null || token == '' || token == null) {
         Navigator.push(context,
           MaterialPageRoute(
@@ -49,22 +49,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Widget buildRow(int index, List<dynamic> data) {
+    TimeLineItem item = TimeLineItem.fromJson(data[index]);
+    return Container(
+      child: Text(item.content),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('首页'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'home',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: Observer(
+        builder: (_) => RefreshListView(
+          dataSource: store.dataSource,
+          buildRow: buildRow,
+        )
       ),
     );
   }

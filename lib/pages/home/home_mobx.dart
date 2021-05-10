@@ -11,6 +11,8 @@ abstract class _HomeMobx with Store {
 
   void getHomeLine() async {
     ApiResponse response = await TimelineServer.getHomeTimeline();
-    
-  } 
+    this.dataSource = response.data;
+
+    print(this.dataSource);
+  }
 }
